@@ -9,7 +9,8 @@ module.exports = function(app) {
     });
     app.post('/donation', (req, res) => {
         let jsonfile = JSON.stringify(req.body);
-        fs.writeFile('../HotCoinDonation/data/form-data.json', jsonfile, 'utf-8', (err) => { if(err) throw err; });
+        /*heroku*/
+        //fs.writeFile('../HotCoinDonation/data/form-data.json', jsonfile, 'utf-8', (err) => { if(err) throw err; });
         console.log('이름: ' + req.body.name);
         console.log('돈: ' + req.body.price);
         console.log('글: ' + req.body.paragraph);
