@@ -14,5 +14,6 @@ module.exports = function(app) {
         console.log('이름: ' + req.body.name);
         console.log('돈: ' + req.body.price);
         console.log('글: ' + req.body.paragraph);
+        res.send(jsonfile);
     });
 }
