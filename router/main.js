@@ -16,7 +16,8 @@ module.exports = function(app, Info) {
         let info = new Info();
         info.name = req.body.name;
         info.price = req.body.price;
-        info.type = req.body.type.options[req.body.type.selectedIndex].value;
+        //info.type = req.body.type.options[req.body.type.selectedIndex].value;
+        info.type = req.body.types;
         info.content = req.body.paragraph;
         info.loaded = false;
 
