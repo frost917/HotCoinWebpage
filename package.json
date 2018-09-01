@@ -9,10 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "connect-timeout": "^1.9.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "mongoose": "^5.2.8",
-    "nodemon": "^1.18.3"
+    "nodemon": "^1.18.3",
+    "responsivevoice": "^0.4.1",
+    "socket.io": "^2.1.1"
   }
 }

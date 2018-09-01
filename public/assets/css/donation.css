@@ -1,0 +1,46 @@
+@keyframes fade {
+    0% {display: none;}
+    5% {display: block;}
+    95% {display: block;}
+    100% {display: none;}
+}
+
+div {
+    animation-name: fade;
+    animation-duration: 5s;
+}
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: auto;
+    max-width: 360px;
+    max-height: 360px;
+}
+
+.transparent {
+    background: rgba(255, 255, 255, 0);
+    font-family: "나눔바른고딕";
+    text-align: center;
+}
+
+.title { 
+    font-size: 36pt;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 3px black, 0 0 5px black;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 20pt;
+    color: white;
+    text-shadow: 0 0 1px black, 0 0 3px black;
+    margin-top: 10px;
+}
+
+.emptext {
+    color: lightseagreen;
+}

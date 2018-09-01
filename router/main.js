@@ -1,6 +1,8 @@
 const fs = require('fs');
+//const voice = require('responsivevoice');
 
-module.exports = function(app, Info) {
+module.exports = function(app, Info, Counter) {
+    let now = 50;
     app.get('/', (req, res) => {
         res.render('index.html');
     });
@@ -37,5 +39,27 @@ module.exports = function(app, Info) {
             if(err) return res.status(500).send({error: 'database failure'});
             res.json(donations);
         });
+    });
+    app.get('/view', (req, res) => {
+        let don = null;
+        /*Info.find((err, donations) => {
+            if(err) return res.status(500).send({error: 'database failure'});
+            don = donations;
+            console.log(don[now].type);
+            function rend() {
+                res.render('view', {
+                    name: don[now].name,
+                    price: don[now].price,
+                    type: don[now].type,
+                    content: don[now].content,
+                    reset: true
+                });
+                now++;
+            }
+            setTimeout(() => {
+                rend();
+            }, 3000);
+        });*/
+        res.render('view.html');
     });
 }
