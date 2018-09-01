@@ -72,6 +72,7 @@ function func() {
                 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 let content = document.getElementById('donationText').innerHTML;
                 let match = content.toString().split(' ')[0].match(regExp);
+                console.log(match[2]);
                 player.loadVideoById(match[2]);
                 document.getElementById('videodiv').style.display = 'block';
                 now++;
