@@ -19,7 +19,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const io = require('./router/io')(server);
+//const io = require('./router/io')(server);
 const router = require('./router/main')(app, Info, Counter);
 
 function haltOnTimedout(req, res, next) {
