@@ -39,8 +39,8 @@ window.onYouTubeIframeAPIReady = function() {
 
 
 function func() {                  
-    fetch("http://localhost:3000/donations")
-    //fetch("http://hotsorry.herokuapp.com/donations")
+    //fetch("http://localhost:3000/donations")
+    fetch("http://hotsorry.herokuapp.com/donations")
     .then((res) => {
         if(res.ok) {
             return res.json();
@@ -103,7 +103,7 @@ function func() {
                 }, 10000);
             }
 
-            if(type == 'IMAGE') {
+            /*if(type == 'IMAGE') {
                 let content = document.getElementById('donationText').innerHTML;
                 document.getElementById('image').src = content;
                 setTimeout(() => {
@@ -115,7 +115,7 @@ function func() {
             }
 
             if(type == 'AUDIO') {
-            }
+            }*/
         }
         else {
             setTimeout(() => {
