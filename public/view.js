@@ -1,4 +1,4 @@
-let now = 51;
+let now = 57;
 let len;
 console.log('됨');
 
@@ -13,10 +13,10 @@ window.onYouTubeIframeAPIReady = function() {
         height: 720,
         width: 1280,
         videoId: 'Erbmd5EWPRw',
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
         });
     }
 
@@ -39,8 +39,8 @@ window.onYouTubeIframeAPIReady = function() {
 
 
 function func() {                  
-    //fetch("http://localhost:3000/donations")
-    fetch("http://hotsorry.herokuapp.com/donations")
+    fetch("http://localhost:3000/donations")
+    //fetch("http://hotsorry.herokuapp.com/donations")
     .then((res) => {
         if(res.ok) {
             return res.json();
@@ -55,7 +55,9 @@ function func() {
             document.getElementById('price').innerHTML = obj[now].price;
             document.getElementById('donationText').innerHTML = obj[now].content;
             if(type == 'TEXT') {
-                responsiveVoice.speak(document.getElementById('donationText').innerHTML, 'Korean Female', { onend: function() {  
+                let str = document.getElementById('donationText').innerHTML.split(' ');
+                let len = str.length;
+                responsiveVoice.speak(document.getElementById('donationText').innerHTML, 'Korean Female', { onend: function() {   
                     setTimeout(() => {
                         document.getElementById('textdiv').style.display = 'none';                                         
                         now++;
@@ -64,6 +66,15 @@ function func() {
                         }, 2000);
                     }, 1000);
                 } });
+                /*playTTS(str, len, 0, function() {
+                    setTimeout(() => {
+                        document.getElementById('textdiv').style.display = 'none';                                         
+                        now++;
+                        setTimeout(() => {
+                            func(); 
+                        }, 2000);
+                    }, 1000);
+                });*/
                 document.getElementById('textdiv').style.display = 'block'; 
                 document.getElementById('videodiv').style.display = 'none';
             }
@@ -91,6 +102,20 @@ function func() {
                     }, 2000);
                 }, 10000);
             }
+
+            if(type == 'IMAGE') {
+                let content = document.getElementById('donationText').innerHTML;
+                document.getElementById('image').src = content;
+                setTimeout(() => {
+                    now++;
+                    setTimeout(() => {
+                        func();
+                    }, 2000);
+                }, 2000);
+            }
+
+            if(type == 'AUDIO') {
+            }
         }
         else {
             setTimeout(() => {
@@ -101,3 +126,32 @@ function func() {
 }
 
 func(); 
+
+
+function playTTS(text, len, index, f) {
+    responsiveVoice.speak(text[index], 'Korean Female', { onend: function() {  
+        console.log(index + ' ' + len);
+        if(index < len-1) {
+            if(text[index+1] == '따') {
+                let audio = new Audio('따.mp3');
+                //let audio = document.getElementById('audio');
+                audio.play();
+                audio.onended = function() {
+                    console.log('퉤');
+                    if(index+1 < len-1) {
+                        playTTS(text, len, index+1, f);
+                    }
+                    else {
+                        f();
+                    }
+                }
+            }
+            else {
+                playTTS(text, len, index+1, f);
+            }
+        }
+        else {
+            f();
+        }
+    } });
+}
