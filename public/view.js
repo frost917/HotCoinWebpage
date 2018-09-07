@@ -49,7 +49,7 @@ function func() {
     });*/
 
     //fetch("http://localhost:3000/donations")
-    fetch("http://hotsorry.herokuapp.com/donations")
+    fetch("https://hotsorry.herokuapp.com/donations")
     .then((res) => {
         if(res.ok) {
             return res.json();
