@@ -4,10 +4,13 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="./assets/css/donation.css">
         <script src="http://code.responsivevoice.org/responsivevoice.js"></script>  
-        
-         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>      
     </head>
     <body>
+    <div id="bodydiv">
+        <div id="countdiv" style="display:none;">
+            <p id="counter"><%= counter %></p>
+        </div>
         <div id="textdiv">
             <div>
                 <img class="image" src="./assets/img/logo1.png">
@@ -22,16 +25,17 @@
                 </div>
             </div>
         </div>
-        <div>
-            <audio id="audio" src="따.mp3"></audio>
-        </div>
         <div id="videodiv">
-            <iframe id="videoiframe" width=1280 height=720 frameborder=0></iframe>
+            <iframe id="videoiframe" width=1280 height=720 frameborder=0></iframe>           
         </div>
         <div id="clipdiv">
             <iframe id="clipiframe" width=1280 height=720 frameborder=0></iframe>
         </div>
+        <div id="videotextdiv">
+            <p id="videotext" class="dontext"></p>
+        </div>
         <script src="https://www.youtube.com/iframe_api"></script>
         <script src="./view.js"></script>
+    </div>
     </body>
 </html>

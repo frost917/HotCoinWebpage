@@ -11,5 +11,13 @@
         <div class="login" style="float: right;">
             <button>로그인</button>
         </div>
+        <script>
+            let text = '시그니처 테스트 따 따 따';
+            let regex = /([^따]*)(.*)/;
+            let match = text.match(regex);
+            console.log(match[0]);
+            console.log(match[1]);
+            console.log(match[2]); 
+        </script>
     </div>
 </body>
