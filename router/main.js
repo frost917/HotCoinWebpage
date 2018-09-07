@@ -58,7 +58,7 @@ module.exports = function(app, Info, Counter) {
         Counter.find((err, counters) => {
             //let obj = JSON.parse(counters[0]);
             //let count = counters[0].count;
-            let count = 53;
+            let count = 57;
             console.log(count);
             res.render('view', {
                 counter: count
