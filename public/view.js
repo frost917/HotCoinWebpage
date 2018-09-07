@@ -68,6 +68,12 @@ function func() {
             document.getElementById('donationText').innerHTML = content;
             if(type == 'TEXT') {
                 $("div").fadeIn();
+                document.getElementById('countdiv').style.display = 'none';
+                document.getElementById('textdiv').style.display = 'block'; 
+                document.getElementById('videodiv').style.display = 'none';
+                document.getElementById('clipdiv').style.display = 'none';
+                document.getElementById('videotextdiv').style.display = 'none';
+
                 let str = document.getElementById('donationText').innerHTML;
                 let len = str.length;
 
@@ -96,15 +102,16 @@ function func() {
                     }, 1000);
                 });*/
                 //playTTS(document.getElementById('donationText').innerHTML);
-                document.getElementById('countdiv').style.display = 'none';
-                document.getElementById('textdiv').style.display = 'block'; 
-                document.getElementById('videodiv').style.display = 'none';
-                document.getElementById('clipdiv').style.display = 'none';
-                document.getElementById('videotextdiv').style.display = 'none';
             }
 
             if(type == 'VIDEO') {
                 $("div").fadeIn();
+                document.getElementById('countdiv').style.display = 'none';
+                document.getElementById('textdiv').style.display = 'none'; 
+                document.getElementById('videodiv').style.display = 'block';
+                document.getElementById('clipdiv').style.display = 'none';
+                document.getElementById('videotextdiv').style.display = 'block';
+
                 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 let match = content.toString().split(' ')[0].match(regExp);
                 console.log(match[2]);
@@ -120,17 +127,17 @@ function func() {
                         func();
                     }, 2000);
                 }, price*1000);
-                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
-
-                document.getElementById('countdiv').style.display = 'none';
-                document.getElementById('textdiv').style.display = 'none'; 
-                document.getElementById('videodiv').style.display = 'block';
-                document.getElementById('clipdiv').style.display = 'none';
-                document.getElementById('videotextdiv').style.display = 'block';
+                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';       
             }   
 
             if(type == 'CLIP') {
                 $("div").fadeIn();
+                document.getElementById('countdiv').style.display = 'none';
+                document.getElementById('textdiv').style.display = 'none'; 
+                document.getElementById('videodiv').style.display = 'none';
+                document.getElementById('clipdiv').style.display = 'block';
+                document.getElementById('videotextdiv').style.display = 'block';
+                
                 let content = document.getElementById('donationText').innerHTML;
                 let videoid = content.split('/');
                 let length = price*1000;
@@ -175,12 +182,6 @@ function func() {
                 
 
                 document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
-
-                document.getElementById('countdiv').style.display = 'none';
-                document.getElementById('textdiv').style.display = 'none'; 
-                document.getElementById('videodiv').style.display = 'none';
-                document.getElementById('clipdiv').style.display = 'block';
-                document.getElementById('videotextdiv').style.display = 'block';
             }
 
             if(type == 'IMAGE' || type == 'AUDIO') {
