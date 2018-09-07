@@ -27,8 +27,8 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {
     if(event.data == 0) {
-        document.getElementById('videodiv').style.display = 'none';
-        document.getElementById('videotextdiv').style.display = 'none';
+        $('div').fadeOut();
+        now++;
         setTimeout(() => {
             func(); 
         }, 2000);         
