@@ -17,6 +17,7 @@ const CALLBACK_URL = 'http://hotsorry.herokuapp.com/auth/twitch/callback';
 mongoose.connect(process.env.MONGODB_URI);
 const Info = require('./models/donationInfo');
 const Counter = require('./models/counter');
+const User = require('./models/user');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -69,7 +70,23 @@ passport.use('twitch', new OAuth2Strategy({
         profile.accessToken = accessToken;
         profile.refreshToken = refreshToken;
 
-        done(null, profile);
+        User.findOne({ id: profile.name }, (err, user) => {
+            if(err) return done(err);
+            if(user) {
+                return done(null, user);
+            }
+            else {
+                let newUser = new User();
+                newUser.id = profile.name;
+                newUser.coin = 0;
+
+                newUser.save((err) => {
+                    if(err) throw err;
+                    return done(null, newUser);
+                })
+            }
+        })
+        //done(null, profile);
     }
 ));
 
