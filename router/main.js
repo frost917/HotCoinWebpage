@@ -68,8 +68,8 @@ module.exports = function(app, passport, Info, Counter) {
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
             //let obj = JSON.parse(counters[0]);
-            //let count = counters[0].count;
-            let count = 57;
+            let count = counters[0].count;
+            //let count = 57;
             console.log(count);
             res.render('view', {
                 counter: count
