@@ -1,9 +1,16 @@
-const fs = require('fs');
-//const voice = require('responsivevoice');
-
-module.exports = function(app, Info, Counter) {
+module.exports = function(app, passport, Info, Counter) {
     app.get('/', (req, res) => {
-        res.render('index.html');
+        if(req.session && req.session.passport && req.session.passport.user) {
+            res.render('index', {
+                name: req.session.passport.user.display_name
+            });
+        }
+        else {
+            res.render('about.html');
+        }
+    });
+    app.get('/about', (req, res) => {
+        res.render('about.html');
     });
     /*once create*/
     /*app.get('/counter', (req, res) => {
@@ -17,6 +24,8 @@ module.exports = function(app, Info, Counter) {
         });
         res.json(counter);
     });*/
+    app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
+    app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
     app.get('/counter', (req, res) => {
         Counter.find((err, counters) => {
             res.json(counters);
