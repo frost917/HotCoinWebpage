@@ -6,7 +6,7 @@
   </head>
   <body>
     <div>
-      <p><%= name %>(<%= id %>)님 환영합니다.</p>
+      <p><%= id %>님의 현재 코인: <%= coin %>코인</p>
     </div>
     <form action="/donation" method="POST" id="form1">
       <label>이름:</label> <input type="text" name="name" id="name"><br>

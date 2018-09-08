@@ -1,9 +1,10 @@
 module.exports = function(app, passport, Info, Counter) {
     app.get('/', (req, res) => {
         if(req.session && req.session.passport && req.session.passport.user) {
+            console.log(req.session.passport.user);
             res.render('index', {
-                name: req.session.passport.user.display_name,
-                id: req.session.passport.user.name
+                id: req.session.passport.user.id,
+                coin: req.session.passport.user.coin
             });
         }
         else {
