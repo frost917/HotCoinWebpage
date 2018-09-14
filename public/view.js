@@ -82,7 +82,7 @@ function func() {
                 console.log(match[0]);
                 console.log(match[1]);
                 console.log(match[2]);
-                responsiveVoice.speak(match[1], 'Korean Female', { onend: function() {   
+                responsiveVoice.speak(str, 'Korean Female', { onend: function() {   
                     setTimeout(() => {
                         //document.getElementById('textdiv').style.display = 'none';   
                         $("div").fadeOut();                                     
