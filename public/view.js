@@ -115,12 +115,7 @@ function func() {
                 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 let match = content.toString().split(' ')[0].match(regExp);
                 console.log(match[2]);
-                let testPlayer = setInterval(() => {
-                    if(player) {
-                        clearInterval(testPlayer);
-                        player.loadVideoById(match[2]);
-                    }
-                });
+                player.loadVideoById(match[2]);
                 
                 setTimeout(() => {
                     player.stopVideo();
