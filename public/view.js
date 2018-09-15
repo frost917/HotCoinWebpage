@@ -90,7 +90,7 @@ function func() {
                         setTimeout(() => {
                             func(); 
                         }, 2000);
-                    }, 1000);
+                    }, 4000);
                 } });
                 /*playTTS(str, len, 0, function() {
                     setTimeout(() => {
