@@ -23,7 +23,7 @@ window.onYouTubeIframeAPIReady = function() {
 function onPlayerReady(event) { 
     event.target.loadVideoById(match[2]); 
     event.target.playVideo();
- }
+}
 
 function onPlayerStateChange(event) {
     if(event.data == 0) {
