@@ -5,7 +5,7 @@ console.log('됨');
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
 let match = content.toString().split(' ')[0].match(regExp);
-
+/*
 let player;
 window.onYouTubeIframeAPIReady = function() {
     console.log('유튜브');
@@ -33,7 +33,7 @@ function onPlayerStateChange(event) {
             func(); 
         }, 2000);         
     }
-}
+}*/
 
 function func() {
     
@@ -111,13 +111,37 @@ function func() {
                 document.getElementById('videodiv').style.display = 'block';
                 document.getElementById('clipdiv').style.display = 'none';
                 document.getElementById('videotextdiv').style.display = 'block';
+                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
 
                 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
                 let match = content.toString().split(' ')[0].match(regExp);
                 console.log(match[2]);
-                player.loadVideoById(match[2]);
-                
-                setTimeout(() => {
+                //player.loadVideoById(match[2]);
+                let length = price*1000;
+                document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
+
+                fetch('https://www.googleapis.com/youtube/v3/videos?id='+match[2]+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE')
+                .then((res) => {
+                    if(res.ok) {
+                        return res.json();
+                    }
+                })
+                .then((data) => {
+                    let time = convert_time(data['items'][0]['contentDetails']['duration']);
+                    if(price > time) {
+                        length = time*1000;
+                        console.log(length);
+                    }
+                    setTimeout(() => {
+                        document.getElementById('videoiframe').src = 'about:blank'
+                        $("div").fadeOut();
+                        now++;
+                        setTimeout(() => {
+                            func();
+                        }, 2000);
+                    }, length+1000); 
+                });
+                /*setTimeout(() => {
                     player.stopVideo();
                     //document.getElementById('videodiv').style.display = 'none';
                     //document.getElementById('videotextdiv').style.display = 'none';
@@ -127,7 +151,7 @@ function func() {
                         func();
                     }, 2000);
                 }, price*1000);
-                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';       
+                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';  */     
             }   
 
             if(type == 'CLIP') {
@@ -137,6 +161,7 @@ function func() {
                 document.getElementById('videodiv').style.display = 'none';
                 document.getElementById('clipdiv').style.display = 'block';
                 document.getElementById('videotextdiv').style.display = 'block';
+                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
                 
                 let content = document.getElementById('donationText').innerHTML;
                 let videoid = content.split('/');
@@ -145,7 +170,6 @@ function func() {
                 else if(videoid[2] == 'www.twitch.tv') videoid = videoid[5];
                 console.log(videoid);
                 document.getElementById('clipiframe').src = 'https://clips.twitch.tv/embed?clip=' + videoid;
-                document.getElementById('clipdiv').style.display = 'block';
 
                 fetch('https://api.twitch.tv/kraken/clips/'+videoid , {
                     method: 'GET',
@@ -178,30 +202,12 @@ function func() {
                         }, 2000);
                     }, length+1000);     
                 });
-
-                
-
-                document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
             }
 
             if(type == 'IMAGE' || type == 'AUDIO') {
                 now++;
                 func();
             }
-
-            /*if(type == 'IMAGE') {
-                let content = document.getElementById('donationText').innerHTML;
-                document.getElementById('image').src = content;
-                setTimeout(() => {
-                    now++;
-                    setTimeout(() => {
-                        func();
-                    }, 2000);
-                }, 2000);
-            }
-
-            if(type == 'AUDIO') {
-            }*/
         }
         else {
             setTimeout(() => {
@@ -232,20 +238,15 @@ function func() {
 
 func(); 
 
-function fadeOut() {
-    let divs = document.getElementsByTagName('div');
-    /*for(let i in divs) {
-        //i.style.animation = 'fadeout 500ms';
-        let fadeout = setInterval(() => {
-            if(i.style.opacity > 0) {
-                i.style.opacity -= 0.1;
-            }
-            else {
-                clearInterval(fadeout);
-            }
-        }, 10);
-    }*/
-    $("div").fadeOut();
+function convert_time(duration) {
+    var total = 0;
+    var hours = duration.match(/(\d+)H/);
+    var minutes = duration.match(/(\d+)M/);
+    var seconds = duration.match(/(\d+)S/);
+    if (hours) total += parseInt(hours[1]) * 3600;
+    if (minutes) total += parseInt(minutes[1]) * 60;
+    if (seconds) total += parseInt(seconds[1]);
+    return total;
 }
 
 /*function playTTS(text, len, index, f) {
