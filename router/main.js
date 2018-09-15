@@ -12,7 +12,7 @@ module.exports = function(app, passport, Info, Counter) {
         }
     });
     app.get('/about', (req, res) => {
-        res.render('about.html');
+        //res.render('about.html');
     });
     /*once create*/
     /*app.get('/counter', (req, res) => {
@@ -28,10 +28,16 @@ module.exports = function(app, passport, Info, Counter) {
     });*/
     app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
     app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
-    app.get('/counter', (req, res) => {
+    app.get('/counter/get', (req, res) => {
         Counter.find((err, counters) => {
             res.json(counters);
         });  
+    });
+    app.post('/counter/post', (req, res) => {
+        Counter.update({ }, { $set: { count: req.body.count } }, (err, counters) => {
+            console.log('ㅇㅅㅇ: ' + req.body.count);
+            res.send(counters);
+        });
     });
     app.post('/donation', (req, res) => {
         console.log('이름: ' + req.body.name);
