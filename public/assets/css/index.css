@@ -1,0 +1,51 @@
+input, select, textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 12px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+p {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.row {
+    clear: both;
+    display: flex;
+}
+
+.col-10l {
+    float: left;
+    flex: 0 0 8%;
+    max-width: 8%;
+}
+
+.col-20l {
+    float: left;
+    flex: 0 0 16%;
+    max-width: 16%;
+}
+
+.col-40l {
+    float: left;
+    flex: 0 0 32%;
+    max-width: 32%;
+}
+
+.col-40m {
+    flex: 0 0 32%;
+    max-width: 32%;
+}
+
+.col-10l, .col-20l, .col-40l, .col-40m{
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 8px;
+    padding-right: 8px;
+}

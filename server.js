@@ -19,7 +19,7 @@ const Info = require('./models/donationInfo');
 const Counter = require('./models/counter');
 const User = require('./models/user');
 
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
