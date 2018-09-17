@@ -16,7 +16,7 @@
     <form action="/donation" method="POST" id="form1">
         <div class="row">
             <input type="hidden" name="coin" id="coin">
-            <script>document.getElementById('coin').value = docuemnt.getElementById('usercoin').innerHTML</script>
+            <script>window.onload = function() {document.getElementById('coin').value = docuemnt.getElementById('usercoin').innerHTML}</script>
             <div class="col-20l">
                 <input type="text" name="name" id="name" placeholder="이름" required="true">
             </div>
