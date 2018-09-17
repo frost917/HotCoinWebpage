@@ -2,10 +2,13 @@ module.exports = function(app, passport, Info, Counter, User) {
     app.get('/', (req, res) => {
         if(req.session && req.session.passport && req.session.passport.user) {
             console.log(req.session.passport.user);
-            res.render('index', {
-                id: req.session.passport.user.id,
-                coin: req.session.passport.user.coin
-            });
+            User.findOne({ id: req.session.passport.user.id }, (err, oneuser) => {
+                res.render('index', {
+                    id: req.session.passport.user.id,
+                    coin: oneuser.coin
+                });
+            })
+            
         }
         else {
             res.render('about.html');
