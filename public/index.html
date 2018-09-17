@@ -7,16 +7,16 @@
   </head>
   <body>
     <div style="display: none;">
-        <p id="userid"><%= id %></p>
-        <p id="usercoin"><%= coin %></p>
+        <p id="userid">10</p>
+        <p id="usercoin">10</p>
     </div>
     <div class="row">
-        <p class="col-p"><%= id %>님의 현재 코인: <%= coin %>코인</p>
+        <p class="col-p">뭐</p>
     </div>
     <form action="/donation" method="POST" id="form1">
         <div class="row">
-            <input type="hidden" name="coin" id="coin">
-            <script>window.onload = function() {document.getElementById('coin').value = document.getElementById('usercoin').innerHTML}</script>
+            <input type="hidden" name="coin" id="coin" value="">
+            <script>window.onload = function() {document.getElementById('coin').value = docuemnt.getElementById('usercoin').innerHTML}</script>
             <div class="col-20l">
                 <input type="text" name="name" id="name" placeholder="이름" required="true">
             </div>
