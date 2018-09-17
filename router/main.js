@@ -7,8 +7,7 @@ module.exports = function(app, passport, Info, Counter, User) {
                     id: req.session.passport.user.id,
                     coin: oneuser.coin
                 });
-            })
-            
+            }) 
         }
         else {
             res.render('about.html');
@@ -64,7 +63,7 @@ module.exports = function(app, passport, Info, Counter, User) {
         }
 
         if(req.body.price > req.body.coin) {
-            res.send('보유한 코인량보다 많은 양은 후원할 수 없습니다.');
+            res.render('donationFail.html');
             return;
         }
 
