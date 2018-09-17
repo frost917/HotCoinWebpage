@@ -1,4 +1,4 @@
-module.exports = function(app, passport, Info, Counter) {
+module.exports = function(app, passport, Info, Counter, User) {
     app.get('/', (req, res) => {
         if(req.session && req.session.passport && req.session.passport.user) {
             console.log(req.session.passport.user);
@@ -39,6 +39,17 @@ module.exports = function(app, passport, Info, Counter) {
             res.send(counters);
         });
     });
+    app.get('/coins/get', (req, res) => {
+        User.find((err, users) => {
+            res.json(users);
+        });
+    });
+    app.post('/coins/post', (req, res) => {
+        User.update({ id: req.body.id }, { $set: {  coin: req.body.coin } }, (err, users) => {
+            console.log('코인 소모: ' + req.body.coin);
+            res.send(users);
+        });
+    });
     app.post('/donation', (req, res) => {
         console.log('이름: ' + req.body.name);
         console.log('돈: ' + req.body.price);
@@ -46,6 +57,11 @@ module.exports = function(app, passport, Info, Counter) {
         
         if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 0 이하이지 않은지 확인하세요.');
+            return;
+        }
+
+        if(req.body.price > req.body.coin) {
+            res.send('보유한 코인량보다 많은 양은 후원할 수 없습니다.');
             return;
         }
 

@@ -57,23 +57,6 @@ function func() {
     })
     .then(res => res.json())
     .then(res => console.log('포스트'));
-    /*$.ajax({
-        url: '/counter/post',
-        async: true,
-        type: 'POST',
-        data: {
-            count: now
-        },
-        dataType: 'json',
-        beforeSend: function(jqXHR) {},
-        success: function(jqXHR) { 
-            console.log('성공'); 
-        },
-        error: function(jqXHR) {},
-        complete: function(jqXHR) {
-            console.log('완료');
-        }
-    });*/
 
     //fetch("http://localhost:3000/donations")
     fetch("/donations")

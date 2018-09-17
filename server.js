@@ -90,7 +90,7 @@ passport.use('twitch', new OAuth2Strategy({
     }
 ));
 
-const router = require('./router/main')(app, passport, Info, Counter);
+const router = require('./router/main')(app, passport, Info, Counter, User);
 
 app.listen((process.env.PORT || 3000), () => {
     console.log('start');
