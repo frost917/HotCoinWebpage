@@ -1,5 +1,5 @@
 let now = document.getElementById('counter').innerHTML;
-let len;
+let len = 0;
 const socket = io();
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -61,7 +61,7 @@ function func() {
     })
     .then((data) => {
         let obj = data;
-        let len = obj.length;      
+        len = obj.length;      
         if(now < len) {
             let name = obj[now].name;
             let price = obj[now].price;
@@ -238,7 +238,9 @@ function skip() {
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
-    now++;
+    if(now < len) {
+        now++;
+    }
     func();
 }
 
