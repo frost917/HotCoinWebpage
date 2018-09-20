@@ -2,19 +2,18 @@
 <head>
     <meta charset="utf-8">
     <title>헛코닷컴</title>
+    <link rel="stylesheet" href="./assets/css/about.css">
 </head>
 <body>
-    <div>
-        <div class="logo">
-            <p>헛코닷컴</p>
-        </div>
-        <% if(login) { %>
-        <div style="float: right;">
-            <button onclick="location.href = '/manage';">관리자용</button>
-        </div>
-        <% } %>
-        <div class="login" style="float: right;">
-            <button onclick="location.href = '/auth/twitch';">로그인</button>
-        </div>
-    </div>
+    <nav>
+        <ul>
+            <li style="float:left;">헛코닷컴</li>
+            <% if(login) { %>
+            <li><a href="/donate">후원하기</li>
+            <li><a href="/manage">관리자용</li>
+            <% } else { %>
+            <li><a href="/auth/twitch">로그인</li>
+            <% } %>
+        </ul>
+    </nav>
 </body>

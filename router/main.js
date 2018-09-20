@@ -70,6 +70,9 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 });
             });
         }
+        else {
+            res.redirect('/');
+        }
     });
     app.get('/donations', (req, res) => {
         Info.find((err, donations) => {
