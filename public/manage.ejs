@@ -6,9 +6,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     </head>
     <body>
-        <%= if(isAuthenticated) { %>
         <input type="button" value="스킵" id="btnSkip" />
-        <% } %>
         <script>
             const socket = io();
             document.getElementById('btnSkip').addEventListener('click', function() {

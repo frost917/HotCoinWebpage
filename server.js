@@ -6,6 +6,7 @@ const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const io =  require('socket.io')(server);
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const request = require('request');
@@ -23,17 +24,18 @@ const User = require('./models/user');
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
-app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(express.static('public'));
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     res.locals.isAuthenticated = req.isAuthenticated();
     res.locals.currentUser = req.user;
     next();
-});
+});*/
 
 OAuth2Strategy.prototype.userProfile = function(accessToken, done) {
     let options = {
