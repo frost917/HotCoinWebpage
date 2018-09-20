@@ -34,6 +34,7 @@ function onPlayerStateChange(event) {
         }, 2000);         
     }
 }*/
+skip(); //func+reset
 
 socket.on('skip', () => {
     skip();
@@ -217,8 +218,6 @@ function func() {
     });
 }
 
-func(); 
-
 function convert_time(duration) {
     var total = 0;
     var hours = duration.match(/(\d+)H/);
@@ -233,9 +232,9 @@ function convert_time(duration) {
 function skip() {
     document.getElementById('countdiv').style.display = 'none';
     document.getElementById('textdiv').style.display = 'none'; 
-    document.getElementById('videodiv').style.display = 'block';
+    document.getElementById('videodiv').style.display = 'none';
     document.getElementById('clipdiv').style.display = 'none';
-    document.getElementById('videotextdiv').style.display = 'block';
+    document.getElementById('videotextdiv').style.display = 'none';
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();

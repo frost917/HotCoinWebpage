@@ -97,7 +97,7 @@ io.on('connection', function(socket) {
     });
 });
 
-const router = require('./router/main')(app, passport, Info, Counter, User);
+const router = require('./router/main')(app, passport, io, Info, Counter, User);
 
 server.listen((process.env.PORT || 3000), () => {
     console.log('start');

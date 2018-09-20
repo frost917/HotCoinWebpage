@@ -1,4 +1,4 @@
-module.exports = function(app, passport, Info, Counter, User) {
+module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
         if(req.session && req.session.passport && req.session.passport.user) {
             console.log(req.session.passport.user);
@@ -6,6 +6,11 @@ module.exports = function(app, passport, Info, Counter, User) {
                 res.render('index', {
                     id: req.session.passport.user.id,
                     coin: oneuser.coin
+                });
+                io.on('connection', function(socket) {
+                    socket.on('getuser', () => {
+                        io.emit('userdata', req.session.passport.user);
+                    });
                 });
             }) 
         }
@@ -88,7 +93,9 @@ module.exports = function(app, passport, Info, Counter, User) {
         });
     });
     app.get('/manage', (req, res) => {
-        res.render('manage.html');
+        if(res.isAuthenticated()){
+            res.render('manage.html');
+        }
     });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
