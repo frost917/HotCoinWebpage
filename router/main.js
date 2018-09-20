@@ -93,7 +93,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.get('/manage', isAuthenticated, (req, res) => {
-        res.render('manage');
+        res.render('manage.html');
     });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
