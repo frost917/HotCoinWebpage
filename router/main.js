@@ -1,38 +1,9 @@
 module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
-        if(req.session && req.session.passport && req.session.passport.user) {
-            console.log(req.session.passport.user);
-            User.findOne({ id: req.session.passport.user.id }, (err, oneuser) => {
-                res.render('index', {
-                    id: req.session.passport.user.id,
-                    coin: oneuser.coin
-                });
-                io.on('connection', function(socket) {
-                    socket.on('getuser', () => {
-                        io.emit('userdata', req.session.passport.user);
-                    });
-                });
-            }) 
-        }
-        else {
-            res.render('about.html');
-        }
-    });
-    app.get('/about', (req, res) => {
-        //res.render('about.html');
-    });
-    /*once create*/
-    /*app.get('/counter', (req, res) => {
-        let counter = new Counter();
-        counter.count = 0;
-        counter.save((err) => {
-            if(err) {
-                console.error(err);
-                return;
-            }
+        res.render('about', {
+            login: req.isAuthenticated()
         });
-        res.json(counter);
-    });*/
+    });
     app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
     app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
     app.get('/counter/get', (req, res) => {
@@ -55,18 +26,14 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(users);
         });
     });
-    app.post('/donation', (req, res) => {
-        console.log('이름: ' + req.body.name);
-        console.log('돈: ' + req.body.price);
-        console.log('글: ' + req.body.paragraph);
-        
+    app.post('/success', (req, res) => {
         if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 0 이하이지 않은지 확인하세요.');
             return;
         }
 
         if(req.body.price > req.body.coin) {
-            res.render('donationFail.html');
+            res.redirect('/fail')
             return;
         }
 
@@ -83,8 +50,26 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.json({result: 0});
                 return;
             }
-            res.render('donation.html');
+            res.render('donationSuccess.html');
         });     
+    });
+    app.get('/fail', (req, res) => {
+        res.render('donationFail.html');
+    });
+    app.get('/donate', (req, res) => {
+        if(req.isAuthenticated()) {
+            User.findOne({ id: req.user.id }, (err, oneuser) => {
+                res.render('donation', {
+                    id: req.user.id,
+                    coin: oneuser.coin
+                });
+                io.on('connection', function(socket) {
+                    socket.on('getuser', () => {
+                        io.emit('userdata', req.user);
+                    });
+                });
+            });
+        }
     });
     app.get('/donations', (req, res) => {
         Info.find((err, donations) => {
@@ -108,9 +93,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
-            //let obj = JSON.parse(counters[0]);
             let count = counters[0].count;
-            //let count = 57;
             console.log(count);
             res.render('view', {
                 counter: count

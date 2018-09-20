@@ -1,0 +1,61 @@
+@keyframes fadein {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes fadeout {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+div {
+    animation-name: fadein;
+    animation-duration: 500ms;
+}
+
+.image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: auto;
+    max-width: 480px;
+    max-height: 480px;
+}
+
+.transparent {
+    background: rgba(255, 255, 255, 0);
+    font-family: "나눔바른고딕";
+    text-align: center;
+}
+
+.title { 
+    font-size: 48pt;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 3px black, 0 0 5px black, 0 0 7px black;
+    margin-bottom: 20px;
+}
+
+.text {
+    font-size: 36pt;
+    color: white;
+    text-shadow: 0 0 1px black, 0 0 3px black, 0 0 5px black;
+    margin-top: 10px;
+}
+
+.emptext {
+    color: lightseagreen;
+}
+
+.dontext {
+    font-size: 24pt;
+    font-family: "나눔바른고딕";
+    color: white;
+    text-shadow: 0 0 1px black, 0 0 3px black;
+    float: right;
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

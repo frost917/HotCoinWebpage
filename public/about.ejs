@@ -8,8 +8,13 @@
         <div class="logo">
             <p>헛코닷컴</p>
         </div>
+        <% if(login) { %>
+        <div style="float: right;">
+            <button onclick="location.href = '/manage';">관리자용</button>
+        </div>
+        <% } %>
         <div class="login" style="float: right;">
-            <button onclick="location.href = 'http://hotsorry.herokuapp.com/auth/twitch';">로그인</button>
+            <button onclick="location.href = '/auth/twitch';">로그인</button>
         </div>
     </div>
 </body>

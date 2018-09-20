@@ -1,61 +1,51 @@
-@keyframes fadein {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+input, select, textarea {
+    width: 100%;
+    padding: 6px;
+    margin-top: 12px;
+    box-sizing: border-box;
 }
 
-@keyframes fadeout {
-    0% {opacity: 1;}
-    100% {opacity: 0;}
+textarea {
+    height: 100px;
+    resize: vertical;
 }
 
-div {
-    animation-name: fadein;
-    animation-duration: 500ms;
+p {
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-.image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;
-    height: auto;
-    max-width: 480px;
-    max-height: 480px;
+.row {
+    clear: both;
+    display: flex;
 }
 
-.transparent {
-    background: rgba(255, 255, 255, 0);
-    font-family: "나눔바른고딕";
-    text-align: center;
+.col-10l {
+    float: left;
+    flex: 0 0 8%;
+    max-width: 8%;
 }
 
-.title { 
-    font-size: 48pt;
-    font-weight: bold;
-    color: white;
-    text-shadow: 0 0 3px black, 0 0 5px black, 0 0 7px black;
-    margin-bottom: 20px;
+.col-20l {
+    float: left;
+    flex: 0 0 16%;
+    max-width: 16%;
 }
 
-.text {
-    font-size: 36pt;
-    color: white;
-    text-shadow: 0 0 1px black, 0 0 3px black, 0 0 5px black;
-    margin-top: 10px;
+.col-40l {
+    float: left;
+    flex: 0 0 32%;
+    max-width: 32%;
 }
 
-.emptext {
-    color: lightseagreen;
+.col-40m {
+    flex: 0 0 32%;
+    max-width: 32%;
 }
 
-.dontext {
-    font-size: 24pt;
-    font-family: "나눔바른고딕";
-    color: white;
-    text-shadow: 0 0 1px black, 0 0 3px black;
-    float: right;
-    margin-top: 10px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+.col-10l, .col-20l, .col-40l, .col-40m{
+    box-sizing: border-box;
+    position: relative;
+    padding-left: 8px;
+    padding-right: 8px;
 }
