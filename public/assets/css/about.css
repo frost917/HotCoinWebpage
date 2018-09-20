@@ -8,3 +8,8 @@ ul {
 li {
     float: right;
 }
+
+li a {
+    display: block;
+    padding: 14px 16px;
+}
