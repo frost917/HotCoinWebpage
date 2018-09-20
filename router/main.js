@@ -93,8 +93,14 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.get('/manage', (req, res) => {
+        const listAdmin = ['wotjdeowkd', 'makukthegamer'];
         if(req.isAuthenticated()) {
-            res.render('manage.html');
+            if(req.session.passport.user.id in listAdmin) {
+                res.render('manage.html');
+            }
+            else {
+                res.redirect('/');
+            }
         }
         else {
             res.redirect('/');
