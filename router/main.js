@@ -92,8 +92,13 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.json(donations);
         });
     });
-    app.get('/manage', isAuthenticated, (req, res) => {
-        res.render('manage.html');
+    app.get('/manage', (req, res) => {
+        if(req.isAuthenticated()) {
+            res.render('manage.html');
+        }
+        else {
+            res.redirect('/');
+        }
     });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
@@ -106,10 +111,4 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             });
         });      
     });
-    function isAuthenticated(req, res, next) {
-        if(req.isAuthenticated()) {
-            return next;
-        }
-        res.redirect('/');
-    }
 }
