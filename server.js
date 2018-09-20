@@ -29,6 +29,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(function(req, res, next) {
+    res.locals.isAuthenticated = req.isAuthenticated();
+    res.locals.currentUser = req.user;
+    next();
+});
 
 OAuth2Strategy.prototype.userProfile = function(accessToken, done) {
     let options = {

@@ -93,8 +93,11 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.get('/manage', (req, res) => {
-        if(res.isAuthenticated()){
-            res.render('manage.html');
+        if(req.isAuthenticated()){
+            res.render('manage');
+        } 
+        else {
+            res.send('로그인해라');
         }
     });
     app.get('/view', (req, res) => {
