@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>관리창</title>
+        <meta charset="utf-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    </head>
+    <body>
+        <input type="button" value="스킵" id="btnSkip" />
+        <iframe id="htmlframe" style="display:none;"></iframe>
+        <script>
+            const socket = io();
+            document.getElementById('btnSkip').addEventListener('click', function() {
+                socket.emit('skip');
+            })
+        </script>
+    </body>
+</html>

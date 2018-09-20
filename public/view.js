@@ -1,6 +1,6 @@
 let now = document.getElementById('counter').innerHTML;
 let len;
-console.log('됨');
+const socket = io();
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
@@ -35,18 +35,12 @@ function onPlayerStateChange(event) {
     }
 }*/
 
+socket.on('skip', () => {
+    skip();
+});
+
 function func() {
-    
     document.getElementById('counter').innerHTML = now;
-    /*fetch("http://localhost:3000/counter")
-    .then((res) => {
-        if(res.ok) {
-            return res.json();
-        }
-    })
-    .then((data) => {
-        now = data.count;
-    });*/
 
     fetch('/counter/post', {
         method: 'POST',
@@ -58,7 +52,6 @@ function func() {
     .then(res => res.json())
     .then(res => console.log('포스트'));
 
-    //fetch("http://localhost:3000/donations")
     fetch("/donations")
     .then((res) => {
         if(res.ok) {
@@ -183,7 +176,6 @@ function func() {
 
                 fetch('https://api.twitch.tv/kraken/clips/'+videoid , {
                     method: 'GET',
-                    //mode: 'no-cors',
                     headers: {
                         'Accept': 'application/vnd.twitchtv.v5+json',
                         'Client-ID': 'aqb3jyyi5f9kooibp1if0clz2gqwrt'
@@ -195,7 +187,6 @@ function func() {
                     }
                 })
                 .then((data) => {
-                    //let clipdata = JSON.parse(data);
                     console.log(price);
                     if(price > data['duration']) {
                         length = data['duration']*1000;
@@ -203,8 +194,6 @@ function func() {
                     }
                     setTimeout(() => {
                         document.getElementById('clipiframe').src = 'about:blank'
-                        //document.getElementById('clipdiv').style.display = 'none';
-                        //document.getElementById('videotextdiv').style.display = 'none';
                         $("div").fadeOut();
                         now++;
                         setTimeout(() => {
@@ -226,24 +215,6 @@ function func() {
             }, 1000);
         }
     });
-
-    /*let counter = {
-        count: 0
-    };
-    counter['count'] = now;
-    fetch("http://localhost:3000/counter", {
-        method: 'post',
-        body: JSON.stringify(counter)
-    })
-    .then((res) => {
-        if(res.status === 200 || res.status === 201) {
-            //res.json().then(json => console.log(json));
-        }
-        else {
-            console.err(res.statusText);
-        }
-    })
-    .catch(err => console.error(err));*/
 }
 
 func(); 
@@ -259,33 +230,18 @@ function convert_time(duration) {
     return total;
 }
 
-/*function playTTS(text, len, index, f) {
-    responsiveVoice.speak(text[index], 'Korean Female', { onend: function() {  
-        console.log(index + ' ' + len);
-        if(index < len-1) {
-            if(text[index+1] == '따') {
-                let audio = new Audio('따.mp3');
-                //let audio = document.getElementById('audio');
-                audio.play();
-                audio.onended = function() {
-                    console.log('퉤');
-                    if(index+1 < len-1) {
-                        playTTS(text, len, index+1, f);
-                    }
-                    else {
-                        f();
-                    }
-                }
-            }
-            else {
-                playTTS(text, len, index+1, f);
-            }
-        }
-        else {
-            f();
-        }
-    } });
-}*/
+function skip() {
+    document.getElementById('countdiv').style.display = 'none';
+    document.getElementById('textdiv').style.display = 'none'; 
+    document.getElementById('videodiv').style.display = 'block';
+    document.getElementById('clipdiv').style.display = 'none';
+    document.getElementById('videotextdiv').style.display = 'block';
+    document.getElementById('videoiframe').src = 'about:blank';
+    document.getElementById('clipiframe').src = 'about:blank';
+    responsiveVoice.cancel();
+    now++;
+    func();
+}
 
 function playTTS(text) {
     let regex = /([^따]*)(.*)/;

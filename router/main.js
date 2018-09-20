@@ -37,7 +37,6 @@ module.exports = function(app, passport, Info, Counter, User) {
     });
     app.post('/counter/post', (req, res) => {
         Counter.update({ }, { $set: { count: req.body.count } }, (err, counters) => {
-            console.log('ㅇㅅㅇ: ' + req.body.count);
             res.send(counters);
         });
     });
@@ -48,7 +47,6 @@ module.exports = function(app, passport, Info, Counter, User) {
     });
     app.post('/coins/post', (req, res) => {
         User.update({ id: req.body.id }, { $set: {  coin: req.body.coin } }, (err, users) => {
-            console.log('코인 소모: ' + req.body.coin);
             res.send(users);
         });
     });
@@ -88,6 +86,9 @@ module.exports = function(app, passport, Info, Counter, User) {
             if(err) return res.status(500).send({error: 'database failure'});
             res.json(donations);
         });
+    });
+    app.get('/manage', (req, res) => {
+        res.render('manage.html');
     });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {

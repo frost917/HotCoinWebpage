@@ -5,6 +5,7 @@ const OAuth2Strategy = require('passport-oauth2').Strategy;
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
+const io =  require('socket.io')(server);
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const request = require('request');
@@ -90,8 +91,14 @@ passport.use('twitch', new OAuth2Strategy({
     }
 ));
 
+io.on('connection', function(socket) {
+    socket.on('skip', () => {
+        io.emit('skip');
+    });
+});
+
 const router = require('./router/main')(app, passport, Info, Counter, User);
 
-app.listen((process.env.PORT || 3000), () => {
+server.listen((process.env.PORT || 3000), () => {
     console.log('start');
 });
