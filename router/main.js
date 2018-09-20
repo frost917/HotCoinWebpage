@@ -95,8 +95,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/manage', (req, res) => {
         const listAdmin = ['wotjdeowkd', 'makukthegamer'];
         if(req.isAuthenticated()) {
-            console.log(req.user.id);
-            if(req.user.id == 'makukthegamer') {
+            if(listAdmin.includes(req.user.id)) {
                 res.render('manage.html');
             }
             else {
