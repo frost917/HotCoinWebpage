@@ -40,6 +40,18 @@ socket.on('skip', () => {
     skip();
 });
 
+socket.on('pause', () => {
+    pause();
+});
+
+socket.on('resume', () => {
+    resume();
+});
+
+socket.on('replay', (num) => {
+    replay(num);
+});
+
 function func() {
     document.getElementById('counter').innerHTML = now;
 
@@ -229,7 +241,7 @@ function convert_time(duration) {
     return total;
 }
 
-function skip() {
+function pause() {
     document.getElementById('countdiv').style.display = 'none';
     document.getElementById('textdiv').style.display = 'none'; 
     document.getElementById('videodiv').style.display = 'none';
@@ -238,8 +250,24 @@ function skip() {
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
+}
+
+function resume() {
+    func();
+}
+
+function skip() {
+    pause();
     if(now < len) {
         now++;
+    }
+    func();
+}
+
+function replay(num) {
+    pause();
+    if(num <= now) {
+        now = num;
     }
     func();
 }

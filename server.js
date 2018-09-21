@@ -102,6 +102,15 @@ io.on('connection', function(socket) {
     socket.on('skip', () => {
         io.emit('skip');
     });
+    socket.on('pause', () => {
+        io.emit('pause');
+    });
+    socket.on('resume', () => {
+        io.emit('resume');
+    });
+    socket.on('replay', (num) => {
+        io.emit('replay', 'num');
+    });
 });
 
 const router = require('./router/main')(app, passport, io, Info, Counter, User);

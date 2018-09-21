@@ -6,12 +6,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     </head>
     <body>
+        <input type="button" value="일시정지" id="btnPause" />
+        <input type="button" value="재생" id="btnResume" />
         <input type="button" value="스킵" id="btnSkip" />
         <script>
             const socket = io();
+            document.getElementById('btnPause').addEventListener('click', function() {
+                socket.emit('pause');
+            });
+            document.getElementById('btnResume').addEventListener('resume', function() {
+                socket.emit('resume');
+            });
             document.getElementById('btnSkip').addEventListener('click', function() {
                 socket.emit('skip');
-            })
+            });
         </script>
     </body>
 </html>
