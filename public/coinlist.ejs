@@ -9,7 +9,7 @@
         </div>
         <p id="coinlist"></p>
         <script>
-            let users = document.getElementById('users');
+            let users = JSON.parse(document.getElementById('users'));
             let p = document.getElementById('coinlist');
             for(user in users) {
                 p.innerHTML += user.id + ': ' + user.coin + '<br />';
