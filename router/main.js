@@ -18,7 +18,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.get('/coins/get', (req, res) => {
         User.find((err, users) => {
-            res.json(users);
+            usersp = JSON.stringify(users, null, 2);
+            res.json(usersp);
         });
     });
     app.post('/coins/post', (req, res) => {
