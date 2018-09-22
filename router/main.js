@@ -26,6 +26,16 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(users);
         });
     });
+    app.post('coins/postmanage', (req, res) => {
+        User.findOne({ id: req.body.id }, (err, oneuser) => {
+            oneuser.coin += req.body.coin;
+            oneuser.save((err) => {
+                if(err) {
+                    console.error(err);
+                }
+            });
+        });
+    })
     app.post('/success', (req, res) => {
         if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 0 이하이지 않은지 확인하세요.');
@@ -81,9 +91,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.get('/manage', (req, res) => {
-        const listAdmin = ['wotjdeowkd', 'makukthegamer'];
         if(req.isAuthenticated()) {
-            if(listAdmin.includes(req.user.id)) {
+            if(isAdmin(req.user.id)) {
                 res.render('manage.html');
             }
             else {
@@ -94,6 +103,13 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     });
+    app.get('/manage/coin', (req,res) => {
+        if(req.isAuthenticated()) {
+            if(isAdmin(req.user.id)) {
+                res.render('coins');
+            }
+        }
+    })
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
             let count = counters[0].count;
@@ -103,4 +119,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             });
         });      
     });
+    function isAdmin(id) {
+        const listAdmin = ['wotjdeowkd', 'makukthegamer'];
+        return listAdmin.includes(id);
+    }
 }

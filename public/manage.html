@@ -9,6 +9,7 @@
         <input type="button" value="일시정지" id="btnPause" />
         <input type="button" value="재생" id="btnResume" />
         <input type="button" value="스킵" id="btnSkip" />
+        <input type="button" value="코인 관리" id="btnCoin" />
         <script>
             const socket = io();
             document.getElementById('btnPause').addEventListener('click', function() {
@@ -19,6 +20,9 @@
             });
             document.getElementById('btnSkip').addEventListener('click', function() {
                 socket.emit('skip');
+            });
+            document.getElementById('btnCoin').addEventListener('click', function() {
+                document.location.href = '/manage/coin';
             });
         </script>
     </body>
