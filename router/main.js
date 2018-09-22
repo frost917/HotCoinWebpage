@@ -26,16 +26,6 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(users);
         });
     });
-    app.post('coins/postmanage', (req, res) => {
-        User.findOne({ id: req.body.id }, (err, oneuser) => {
-            oneuser.coin += req.body.coin;
-            oneuser.save((err) => {
-                if(err) {
-                    console.error(err);
-                }
-            });
-        });
-    })
     app.post('/success', (req, res) => {
         if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 0 이하이지 않은지 확인하세요.');
@@ -119,7 +109,9 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     })
     .post(function(req, res) {
         User.findOne({ id: req.body.id }, (err, oneuser) => {
-            oneuser.coin += req.body.coin;
+            usercoin = parseInt(oneuser.coin);
+            usercoin += req.body.coin;
+            oneuser.coin = usercoin;
             oneuser.save((err) => {
                 if(err) {
                     console.error(err);
