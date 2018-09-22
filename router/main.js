@@ -110,7 +110,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     .post(function(req, res) {
         User.findOne({ id: req.body.id }, (err, oneuser) => {
             usercoin = parseInt(oneuser.coin);
-            usercoin += req.body.coin;
+            usercoin += parseInt(req.body.coin);
             oneuser.coin = usercoin;
             oneuser.save((err) => {
                 if(err) {
