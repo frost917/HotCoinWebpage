@@ -16,10 +16,16 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(counters);
         });
     });
+    app.get('/coinlist', (req, res) => {
+        User.find((err, users) => {
+            res.render('coinlist', {
+                users: users
+            });
+        });
+    });
     app.get('/coins/get', (req, res) => {
         User.find((err, users) => {
-            usersp = JSON.stringify(users, null, 2);
-            res.json(usersp);
+            res.json(users);
         });
     });
     app.post('/coins/post', (req, res) => {

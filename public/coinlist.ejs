@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>코인 목록</title>
+    </head>
+    <body>
+        <div style="display:none;">
+            <p id="users"><%= users %></p>
+        </div>
+        <p id="coinlist"></p>
+        <script>
+            let users = document.getElementById('users');
+            let p = document.getElementById('coinlist');
+            for(user in users) {
+                p.innerHTML += user.id + ': ' + user.coin + '<br />';
+            }
+        </script>
+    </body>
+</html>
