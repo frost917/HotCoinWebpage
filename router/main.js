@@ -108,6 +108,12 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             if(isAdmin(req.user.id)) {
                 res.render('coins.html');
             }
+            else {
+                res.redirect('/');
+            }
+        }
+        else {
+            res.redirect('/');
         }
     })
     app.get('/view', (req, res) => {
