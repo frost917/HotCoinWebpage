@@ -103,7 +103,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     });
-    app.get('/manage/coin', (req,res) => {
+    app.route('/manage/coin')
+    .get(function(req, res) {
         if(req.isAuthenticated()) {
             if(isAdmin(req.user.id)) {
                 res.render('coins.html');
@@ -116,6 +117,18 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     })
+    .post(function(req, res) {
+        User.findOne({ id: req.body.id }, (err, oneuser) => {
+            oneuser.coin += req.body.coin;
+            oneuser.save((err) => {
+                if(err) {
+                    console.error(err);
+                    return;
+                }
+                res.redirect('/manage/coin');
+            });
+        });
+    });
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
             let count = counters[0].count;
