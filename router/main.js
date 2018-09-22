@@ -106,7 +106,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/manage/coin', (req,res) => {
         if(req.isAuthenticated()) {
             if(isAdmin(req.user.id)) {
-                res.render('coins');
+                res.render('coins.html');
             }
         }
     })
