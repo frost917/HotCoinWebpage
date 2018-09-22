@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const pretty = require('express-prettify');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
 const app = express();
@@ -25,6 +26,7 @@ app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
 app.use(express.static('public'));
+app.use(pretty({ query: 'pretty' }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
