@@ -40,7 +40,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         }
 
         if(req.body.price > req.body.coin) {
-            res.redirect('/fail')
+            res.redirect('/fail');
             return;
         }
 
@@ -58,6 +58,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 return;
             }
             User.update({ id: req.body.id }, { $set: {  coin: req.body.coin-req.body.price } }, (err, users) => {
+                console.log(req.body.id + ' ' + req.body.coin);
                 res.render('donationSuccess.html');
             });
         });    
