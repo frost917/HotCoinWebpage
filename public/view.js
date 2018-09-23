@@ -133,7 +133,7 @@ function func() {
                 let match = content.toString().split(' ')[0].match(regExp);
                 console.log(match[2]);
                 //player.loadVideoById(match[2]);
-                let length = price*1000;
+                let length = price*2000;
                 document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
 
                 fetch('https://www.googleapis.com/youtube/v3/videos?id='+match[2]+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE')
@@ -181,7 +181,7 @@ function func() {
                 
                 let content = document.getElementById('donationText').innerHTML;
                 let videoid = content.split('/');
-                let length = price*1000;
+                let length = price*2000;
                 if(videoid[2] == 'clips.twitch.tv') videoid = videoid[3];
                 else if(videoid[2] == 'www.twitch.tv') videoid = videoid[5];
                 console.log(videoid);

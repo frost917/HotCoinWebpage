@@ -19,7 +19,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/coinlist', (req, res) => {
         User.find((err, users) => {
             res.render('coinlist', {
-                users: users
+                users: JSON.stringify(users)
             });
         });
     });

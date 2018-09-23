@@ -4,14 +4,15 @@
         <title>코인 목록</title>
     </head>
     <body>
-        <div style="display:none;">
+        <div style="display:block;">
             <p id="users"><%= users %></p>
         </div>
         <p id="coinlist"></p>
         <script>
-            let users =  JSON.parse(document.getElementById('users').innerHTML);
+            let users =  document.getElementById('users').innerHTML;
             let p = document.getElementById('coinlist');
             for(user in users) {
+                console.log(user);
                 p.innerHTML += user.id + ': ' + user.coin + '<br />';
             }
         </script>
