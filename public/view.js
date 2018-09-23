@@ -5,6 +5,7 @@ const socket = io();
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
 let match = content.toString().split(' ')[0].match(regExp);
+let alarm = new Audio('./assets/audio/alarm.mp3');
 /*
 let player;
 window.onYouTubeIframeAPIReady = function() {
@@ -53,6 +54,7 @@ socket.on('replay', (num) => {
 });
 
 function func() {
+    alarm.play();
     document.getElementById('counter').innerHTML = now;
 
     fetch('/counter/post', {
