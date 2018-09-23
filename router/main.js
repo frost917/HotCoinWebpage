@@ -57,8 +57,11 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.json({result: 0});
                 return;
             }
-            res.render('donationSuccess.html');
-        });     
+            User.update({ id: req.body.id }, { $set: {  coin: req.body.coin } }, (err, users) => {
+                res.render('donationSuccess.html');
+            });
+        });    
+        
     });
     app.get('/fail', (req, res) => {
         res.render('donationFail.html');

@@ -15,8 +15,8 @@
     </div>
     <form action="/success" method="POST" id="formDonate">
         <div class="row">
+            <input type="hidden" name="id" id="id">
             <input type="hidden" name="coin" id="coin">
-            <script>window.onload = function() {document.getElementById('coin').value = document.getElementById('usercoin').innerHTML}</script>
             <div class="col-20l">
                 <input type="text" name="name" id="name" placeholder="이름" required="true">
             </div>
@@ -42,6 +42,11 @@
             </div>
         </div>
     </form>
-    <script src="index.js"></script>
+    <script>
+    window.onload = function() {
+        document.getElementById('id').value = document.getElementById('userid').innerHTML;
+        document.getElementById('coin').value = document.getElementById('usercoin').innerHTML;
+    }
+    </script>
   </body>
 </html>
