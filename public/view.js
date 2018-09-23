@@ -54,7 +54,7 @@ socket.on('replay', (num) => {
 });
 
 function func() {
-    alarm.play();
+    //
     document.getElementById('counter').innerHTML = now;
 
     fetch('/counter/post', {
@@ -77,6 +77,7 @@ function func() {
         let obj = data;
         len = obj.length;      
         if(now < len) {
+            alarm.play();
             let name = obj[now].name;
             let price = obj[now].price;
             let content = obj[now].content;
