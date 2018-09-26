@@ -18,9 +18,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.get('/coinlist', (req, res) => {
         User.find((err, users) => {
-            res.render('coinlist', {
-                users: JSON.stringify(users)
-            });
+            res.render('coinlist.html');
         });
     });
     app.get('/coins/get', (req, res) => {

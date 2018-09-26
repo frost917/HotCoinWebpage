@@ -103,7 +103,6 @@ function func() {
                 console.log(match[2]);
                 responsiveVoice.speak(str, 'Korean Female', { onend: function() {   
                     setTimeout(() => {
-                        //document.getElementById('textdiv').style.display = 'none';   
                         $("div").fadeOut();                                     
                         now++;
                         setTimeout(() => {

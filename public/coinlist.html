@@ -1,15 +1,9 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>코인 관리</title>
-        <meta charset="utf-8">
+        <title>코인 목록</title>
     </head>
     <body>
-        <form action="/manage/coin" method="POST" id="formManageCoin">
-            <input type="text" name="id" id="id" placeholder="ID" required="true">
-            <input type="number" name="coin" id="coin" placeholder="줄 코인 개수" required="true">
-            <input type="submit" id="submit" value="코인 주기">
-        </form>
         <p id="coinlist" style="line-height: 200%"></p>
         <script>
             fetch('/coins/get')
@@ -37,22 +31,6 @@
                         p.innerHTML += data['users'][0]['display_name'] + '(' + users[k].id +')' + ': ' + users[k].coin + '코인' + '<br />';
                     });
                 }
-            });
-            document.getElementById('formManageCoin').addEventListener('submit', function() {
-            let userid = document.getElementById('id').innerHTML;
-            let coin = document.getElementById('coin').value;
-            fetch('/coins/postmanage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    id: userid, 
-                    coin: coin
-                })
-            })
-            .then(res => res.json())
-            .then(res => console.log('코인 써라'));
             });
         </script>
     </body>
