@@ -38,22 +38,6 @@
                     });
                 }
             });
-            document.getElementById('formManageCoin').addEventListener('submit', function() {
-            let userid = document.getElementById('id').innerHTML;
-            let coin = document.getElementById('coin').value;
-            fetch('/coins/postmanage', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    id: userid, 
-                    coin: coin
-                })
-            })
-            .then(res => res.json())
-            .then(res => console.log('코인 써라'));
-            });
         </script>
     </body>
 </html>

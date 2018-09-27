@@ -16,11 +16,6 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(counters);
         });
     });
-    app.get('/coinlist', (req, res) => {
-        User.find((err, users) => {
-            res.render('coinlist.html');
-        });
-    });
     app.get('/coins/get', (req, res) => {
         User.find((err, users) => {
             res.json(users);
@@ -118,16 +113,30 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     })
     .post(function(req, res) {
         User.findOne({ id: req.body.id }, (err, oneuser) => {
-            usercoin = parseInt(oneuser.coin);
-            usercoin += parseInt(req.body.coin);
-            oneuser.coin = usercoin;
-            oneuser.save((err) => {
-                if(err) {
-                    console.error(err);
-                    return;
-                }
-                res.redirect('/manage/coin');
-            });
+            if(oneuser) {
+                usercoin = parseInt(oneuser.coin);
+                usercoin += parseInt(req.body.coin);
+                oneuser.coin = usercoin;
+                oneuser.save((err) => {
+                    if(err) {
+                        console.error(err);
+                        return;
+                    }
+                    res.redirect('/manage/coin');
+                });
+            }
+            else {
+                let newUser = new User();
+                newUser.id = req.body.id;
+                newUser.coin = req.body.coin;
+                newUser.save((err) => {
+                    if(err) {
+                        console.error(err);
+                        return;
+                    }
+                    res.redirect('/manage/coin');
+                });
+            }
         });
     });
     app.get('/view', (req, res) => {
