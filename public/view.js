@@ -35,7 +35,8 @@ function onPlayerStateChange(event) {
         }, 2000);         
     }
 }*/
-skip(); //func+reset
+pause();
+func();
 
 socket.on('skip', () => {
     skip();
