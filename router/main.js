@@ -28,7 +28,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.post('/success', (req, res) => {
         if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
-            res.send('후원 오류. 빈칸이 있거나 후원 금액이 0 이하이지 않은지 확인하세요.');
+            res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
             return;
         }
 
