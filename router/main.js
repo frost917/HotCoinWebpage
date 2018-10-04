@@ -32,7 +32,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             return;
         }
 
-        if(req.body.price > req.body.coin) {
+        if(req.body.price > parseInt(req.body.coin)) {
             res.redirect('/fail');
             return;
         }
