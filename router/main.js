@@ -149,7 +149,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });      
     });
     function isAdmin(id) {
-        const listAdmin = ['wotjdeowkd', 'makukthegamer'];
+        const listAdmin = ['wotjdeowkd', 'makukthegamer', 'wotjdwlqdlek'];
         return listAdmin.includes(id);
     }
 }

@@ -55,7 +55,5 @@ div {
     text-shadow: 0 0 1px black, 0 0 3px black;
     float: right;
     margin-top: 10px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+    margin-right: 0px;
 }
