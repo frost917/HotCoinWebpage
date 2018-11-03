@@ -132,6 +132,10 @@ function playDonation(data) {
 
             let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             let match = content.toString().split(' ')[0].match(regExp);
+            if(!match[2]) {
+                skip();
+                return;
+            }
             console.log(match[2]);
             //player.loadVideoById(match[2]);
             let length = price*2000;
