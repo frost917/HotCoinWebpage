@@ -119,10 +119,9 @@ function playDonation(data) {
                     }, 2000);
                 }, 4000);
             }
-            SpeechSynthesis.speck(msg);
+            window.SpeechSynthesis.speak(msg);
         }
-
-        if(type == 'VIDEO') {
+        else if(type == 'VIDEO') {
             $("div").fadeIn();
             document.getElementById('countdiv').style.display = 'none';
             document.getElementById('textdiv').style.display = 'none'; 
@@ -154,8 +153,7 @@ function playDonation(data) {
                 }, 2000);
             }, length+1000);
         }   
-
-        if(type == 'CLIP') {
+        else if(type == 'CLIP') {
             $("div").fadeIn();
             document.getElementById('countdiv').style.display = 'none';
             document.getElementById('textdiv').style.display = 'none'; 
@@ -200,8 +198,7 @@ function playDonation(data) {
                 }, length+1000);     
             });
         }
-
-        if(type == 'IMAGE' || type == 'AUDIO') {
+        else if(type == 'IMAGE' || type == 'AUDIO') {
             now++;
             func();
         }
@@ -234,6 +231,7 @@ function pause() {
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
+    window.SpeechSynthesis.cancel();
 }
 
 function resume() {
