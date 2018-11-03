@@ -1,6 +1,6 @@
 let now = document.getElementById('counter').innerHTML;
 let len = 0;
-const socket = io();
+responsiveVoice.setDefaultVoice('Korean Female');
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
@@ -103,23 +103,19 @@ function playDonation(data) {
 
             let regex = /([^따]*)(.*)/;
             let match = str.match(regex);
-            console.log(match[0]);
-            console.log(match[1]);
-            console.log(match[2]);
-            let msg = new SpeechSynthesisUtterance();
-            msg.lang = 'ko-KR';
-            msg.text = str;
-            msg.onend = function(event) {
-                let txtTimer = setTimeout(() => {
-                    $("div").fadeOut();                                     
-                    now++;
+            responsiveVoice.speak(str, 'Korean Female');
+            let speakInterval = setInterval(() => {
+                if(!responsiveVoice.isPlaying()) {
+                    clearInterval(speakInterval);
                     setTimeout(() => {
-                        clearTimeout(txtTimer);
-                        func(); 
-                    }, 2000);
-                }, 4000);
-            }
-            window.speechSynthesis.speak(msg);
+                        $("div").fadeOut();                                     
+                        now++;
+                        setTimeout(() => {
+                            func(); 
+                        }, 2000);
+                    }, 4000);
+                }
+            }, 1000);
         }
         else if(type == 'VIDEO') {
             $("div").fadeIn();
@@ -134,9 +130,9 @@ function playDonation(data) {
             let match = content.toString().split(' ')[0].match(regExp);
             if(!match[2]) {
                 skip();
-                return;
             }
-            console.log(match[2]);
+            else {
+                console.log(match[2]);
             //player.loadVideoById(match[2]);
             let length = price*2000;
             document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
@@ -149,13 +145,15 @@ function playDonation(data) {
             }*/
             let videoTimer = setTimeout(() => {
                 document.getElementById('videoiframe').src = 'about:blank'
-                $("div").fadeOut();
-                now++;
-                setTimeout(() => {
-                    clearTimeout(videoTimer);
-                    func();
-                }, 2000);
-            }, length+1000);
+                    $("div").fadeOut();
+                    now++;
+                    setTimeout(() => {
+                        clearTimeout(videoTimer);
+                        func();
+                    }, 2000);
+                }, length+1000);
+            }
+            
         }   
         else if(type == 'CLIP') {
             $("div").fadeIn();
