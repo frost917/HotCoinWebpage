@@ -119,7 +119,7 @@ function playDonation(data) {
                     }, 2000);
                 }, 4000);
             }
-            window.SpeechSynthesis.speak(msg);
+            window.speechSynthesis.speak(msg);
         }
         else if(type == 'VIDEO') {
             $("div").fadeIn();
@@ -231,7 +231,7 @@ function pause() {
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
-    window.SpeechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 }
 
 function resume() {
