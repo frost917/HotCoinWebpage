@@ -110,10 +110,11 @@ function playDonation(data) {
             msg.lang = 'ko-KR';
             msg.text = str;
             msg.onend = function(event) {
-                setTimeout(() => {
+                let txtTimer = setTimeout(() => {
                     $("div").fadeOut();                                     
                     now++;
                     setTimeout(() => {
+                        clearTimeout(txtTimer);
                         func(); 
                     }, 2000);
                 }, 4000);
@@ -143,14 +144,15 @@ function playDonation(data) {
                 length = time*1000;
                 console.log(length);
             }*/
-            setTimeout(() => {
+            let videoTimer = setTimeout(() => {
                 document.getElementById('videoiframe').src = 'about:blank'
                 $("div").fadeOut();
                 now++;
                 setTimeout(() => {
+                    clearTimeout(videoTimer);
                     func();
                 }, 2000);
-            }, length+1000);     
+            }, length+1000);
         }   
 
         if(type == 'CLIP') {
@@ -164,7 +166,7 @@ function playDonation(data) {
             
             let content = document.getElementById('donationText').innerHTML;
             let videoid = content.split('/');
-            let length = price*2000;
+            const length = price*2000;
             if(videoid[2] == 'clips.twitch.tv') videoid = videoid[3];
             else if(videoid[2] == 'www.twitch.tv') videoid = videoid[5];
             console.log(videoid);
