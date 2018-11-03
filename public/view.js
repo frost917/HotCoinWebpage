@@ -106,7 +106,10 @@ function playDonation(data) {
             console.log(match[0]);
             console.log(match[1]);
             console.log(match[2]);
-            responsiveVoice.speak(str, 'Korean Female', { onend: function() {   
+            let msg = new SpeechSynthesisUtterance();
+            msg.lang = 'ko-KR';
+            msg.text = str;
+            msg.onend = function(event) {
                 setTimeout(() => {
                     $("div").fadeOut();                                     
                     now++;
@@ -114,7 +117,8 @@ function playDonation(data) {
                         func(); 
                     }, 2000);
                 }, 4000);
-            } });
+            }
+            SpeechSynthesis.speck(msg);
         }
 
         if(type == 'VIDEO') {
@@ -251,6 +255,10 @@ function replay(num) {
 }
 
 function playTTS(text) {
+    
+}
+
+/*function playTTS(text) {
     let regex = /([^따]*)(.*)/;
     let match = text.match(regex);
     console.log(match[0]);
@@ -266,4 +274,4 @@ function playTTS(text) {
             }, 2000);
         }, 1000);
     } });
-}
+}*/
