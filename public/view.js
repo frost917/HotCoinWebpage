@@ -57,6 +57,7 @@ async function func() {
 async function getVideoLength(id) {
     const fetchVidLen = await fetch('https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE');
     const vidLenJSON = await fetchVidLen.json();
+    console.log(vidLenJSON);
     return convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
 }
 
@@ -138,15 +139,16 @@ async function playDonation(data) {
                     console.log(length);
                 }
                     
-                await delay(length);
+                await delay(length*1000);
                 document.getElementById('videoiframe').src = 'about:blank';
                 $("div").fadeOut();
                 now++;
 
-                await delay(2);
+                await delay(2000);
                 func();
             }
-        }   
+        }  
+        
         else if(type == 'CLIP') {
             $("div").fadeIn();
             manageDoc(0, 0, 0, 1, 1);
@@ -220,8 +222,8 @@ function manageDoc(a, b, c, d, e) {
     document.getElementById('videotextdiv').style.display = (e ? 'block' : 'none');
 }
 
-function delay(sec) {
-    return new Promise(resolve => setTimeout(resolve, sec*1000));
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function pause() {
