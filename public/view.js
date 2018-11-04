@@ -36,7 +36,7 @@ function onPlayerStateChange(event) {
         }, 2000);         
     }
 }*/
-const func = async() => {
+async function func() {
     document.getElementById('counter').innerHTML = now;
 
     fetch('/counter/post', {
@@ -54,7 +54,7 @@ const func = async() => {
     playDonation(donationJSON);
 }
 
-const getVideoLength = async(id) => {
+async function getVideoLength(id) {
     const fetchVidLen = await fetch('https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE');
     const vidLenJSON = await fetchVidLen.json();
     return convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
@@ -134,26 +134,28 @@ function playDonation(data) {
             }
             else {
                 console.log(match[2]);
-            //player.loadVideoById(match[2]);
-            let length = price*2000;
-            document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
+                //player.loadVideoById(match[2]);
+                let length = price*2000;
+                document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
 
-            let time = getVideoLength(match[2]);
-            if(2*price > time) {
-                length = time*1000;
-                console.log(length);
+                getVideoLength(match[2])
+                .then((time) => {
+                    if(2*price > time) {
+                        length = time*1000;
+                        console.log(length);
+                    }
+                    let videoTimer = setTimeout(() => {
+                        document.getElementById('videoiframe').src = 'about:blank'
+                            $("div").fadeOut();
+                            now++;
+                            setTimeout(() => {
+                                clearTimeout(videoTimer);
+                                func();
+                            }, 2000);
+                        }, length+1000);
+                    }
+                );
             }
-            let videoTimer = setTimeout(() => {
-                document.getElementById('videoiframe').src = 'about:blank'
-                    $("div").fadeOut();
-                    now++;
-                    setTimeout(() => {
-                        clearTimeout(videoTimer);
-                        func();
-                    }, 2000);
-                }, length+1000);
-            }
-            
         }   
         else if(type == 'CLIP') {
             $("div").fadeIn();
