@@ -57,7 +57,7 @@ const func = async() => {
 const getVideoLength = async(id) => {
     const fetchVidLen = await fetch('https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE');
     const vidLenJSON = await fetchVidLen.json();
-    return vidLenJSON;
+    return convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
 }
 
 pause();
@@ -138,8 +138,7 @@ function playDonation(data) {
             let length = price*2000;
             document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
 
-            const vidLenJSON = getVideoLength(match[2]);
-            let time = convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
+            let time = getVideoLength(match[2]);
             if(2*price > time) {
                 length = time*1000;
                 console.log(length);
