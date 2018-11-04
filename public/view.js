@@ -140,7 +140,7 @@ function playDonation(data) {
 
             const vidLenJSON = getVideoLength(match[2]);
             let time = convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
-            if(price > time) {
+            if(2*price > time) {
                 length = time*1000;
                 console.log(length);
             }
