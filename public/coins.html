@@ -12,6 +12,17 @@
         </form>
         <p id="coinlist" style="line-height: 200%"></p>
         <script>
+            const getCoinfromUser = async(user) => {
+                const fetchCoin = await fetch('https://api.twitch.tv/kraken/users?login=' + user.id, {
+                    headers: {
+                        'Accept': 'application/vnd.twitchtv.v5+json',
+                        'Client-ID': 'rzqazfzpfb7iqxk546uvrwej12f9le'
+                    }
+                });
+                const coinJSON = await fetchCoin.json();
+                p.innerHTML += coinJSON['users'][0]['display_name'] + '(' + user.id +')' + ': ' + user.coin + '코인' + '<br />';
+            };
+            
             fetch('/coins/get')
             .then((res) => {
                 if(res.ok) {
@@ -22,20 +33,7 @@
                 let users = data;
                 let p = document.getElementById('coinlist');
                 for(let k in users) {
-                    fetch('https://api.twitch.tv/kraken/users?login=' + users[k].id, {
-                        headers: {
-                            'Accept': 'application/vnd.twitchtv.v5+json',
-                            'Client-ID': 'rzqazfzpfb7iqxk546uvrwej12f9le'
-                        }
-                    })
-                    .then((res) => {
-                        if(res.ok) {
-                            return res.json();
-                        }
-                    })
-                    .then((data) => {
-                        p.innerHTML += data['users'][0]['display_name'] + '(' + users[k].id +')' + ': ' + users[k].coin + '코인' + '<br />';
-                    });
+                    getCoinfromUser(users[k]);
                 }
             });
         </script>
