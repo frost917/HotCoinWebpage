@@ -20,9 +20,9 @@
                     }
                 });
                 const coinJSON = await fetchCoin.json();
-                p.innerHTML += coinJSON['users'][0]['display_name'] + '(' + user.id +')' + ': ' + user.coin + '코인' + '<br />';
+                document.getElementById('coinlist').innerHTML += coinJSON['users'][0]['display_name'] + '(' + user.id +')' + ': ' + user.coin + '코인' + '<br />';
             };
-            
+
             fetch('/coins/get')
             .then((res) => {
                 if(res.ok) {
@@ -31,7 +31,6 @@
             })
             .then((data) => {
                 let users = data;
-                let p = document.getElementById('coinlist');
                 for(let k in users) {
                     getCoinfromUser(users[k]);
                 }
