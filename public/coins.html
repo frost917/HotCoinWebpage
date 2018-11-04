@@ -23,6 +23,14 @@
                 document.getElementById('coinlist').innerHTML += coinJSON['users'][0]['display_name'] + '(' + user.id +')' + ': ' + user.coin + '코인' + '<br />';
             };
 
+            function f(users, k, n) {
+                if(k < n) {
+                    getCoinfromUser(users[k]);
+                    f(users, k+1, n);
+                }
+                else return;
+            }
+
             fetch('/coins/get')
             .then((res) => {
                 if(res.ok) {
@@ -31,9 +39,7 @@
             })
             .then((data) => {
                 let users = data;
-                for(let k in users) {
-                    getCoinfromUser(users[k]);
-                }
+                f(users, 0, users.length);
             });
         </script>
     </body>
