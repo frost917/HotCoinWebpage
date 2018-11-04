@@ -24,11 +24,9 @@
             };
 
             function f(users, k, n) {
-                if(k < n) {
-                    getCoinfromUser(users[k]);
-                    f(users, k+1, n);
-                }
-                else return;
+                if(k >= n) return;
+                getCoinfromUser(users[k]);
+                setTimeout(() => { f(users, k+1, n) }, 0);
             }
 
             fetch('/coins/get')
