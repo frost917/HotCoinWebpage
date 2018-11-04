@@ -1,5 +1,6 @@
 let now = document.getElementById('counter').innerHTML;
 let len = 0;
+const socket = io.connect('https://hotsorry.herokuapp.com');
 responsiveVoice.setDefaultVoice('Korean Female');
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -137,12 +138,12 @@ function playDonation(data) {
             let length = price*2000;
             document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
 
-            /*const vidLenJSON = getVideoLength(match[2]);
+            const vidLenJSON = getVideoLength(match[2]);
             let time = convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
             if(price > time) {
                 length = time*1000;
                 console.log(length);
-            }*/
+            }
             let videoTimer = setTimeout(() => {
                 document.getElementById('videoiframe').src = 'about:blank'
                     $("div").fadeOut();
