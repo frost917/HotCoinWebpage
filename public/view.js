@@ -79,9 +79,10 @@ socket.on('replay', (num) => {
     replay(num);
 });
 
-function playDonation(data) {
+async function playDonation(data) {
     let obj = data;
-    len = obj.length;      
+    len = obj.length; 
+
     if(now < len) {
         alarm.play();
         let name = obj[now].name;
@@ -91,13 +92,10 @@ function playDonation(data) {
         document.getElementById('name').innerHTML = name;
         document.getElementById('price').innerHTML = price;
         document.getElementById('donationText').innerHTML = content;
+
         if(type == 'TEXT') {
             $("div").fadeIn();
-            document.getElementById('countdiv').style.display = 'none';
-            document.getElementById('textdiv').style.display = 'block'; 
-            document.getElementById('videodiv').style.display = 'none';
-            document.getElementById('clipdiv').style.display = 'none';
-            document.getElementById('videotextdiv').style.display = 'none';
+            manageDoc(0, 1, 0, 0, 0);
 
             let str = document.getElementById('donationText').innerHTML;
             let len = str.length;
@@ -118,13 +116,10 @@ function playDonation(data) {
                 }
             }, 1000);
         }
+
         else if(type == 'VIDEO') {
             $("div").fadeIn();
-            document.getElementById('countdiv').style.display = 'none';
-            document.getElementById('textdiv').style.display = 'none'; 
-            document.getElementById('videodiv').style.display = 'block';
-            document.getElementById('clipdiv').style.display = 'none';
-            document.getElementById('videotextdiv').style.display = 'block';
+            manageDoc(0, 0, 1, 0, 1);
             document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
 
             let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -134,36 +129,27 @@ function playDonation(data) {
             }
             else {
                 console.log(match[2]);
-                //player.loadVideoById(match[2]);
-                let length = price*2000;
+                let length = price*2;
                 document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
 
-                getVideoLength(match[2])
-                .then((time) => {
-                    if(2*price > time) {
-                        length = time*1000;
-                        console.log(length);
-                    }
-                    let videoTimer = setTimeout(() => {
-                        document.getElementById('videoiframe').src = 'about:blank'
-                            $("div").fadeOut();
-                            now++;
-                            setTimeout(() => {
-                                clearTimeout(videoTimer);
-                                func();
-                            }, 2000);
-                        }, length+1000);
-                    }
-                );
+                const time = await getVideoLength(match[2])
+                if(length > time) {
+                    length = time;
+                    console.log(length);
+                }
+                    
+                await delay(length);
+                document.getElementById('videoiframe').src = 'about:blank';
+                $("div").fadeOut();
+                now++;
+
+                await delay(2);
+                func();
             }
         }   
         else if(type == 'CLIP') {
             $("div").fadeIn();
-            document.getElementById('countdiv').style.display = 'none';
-            document.getElementById('textdiv').style.display = 'none'; 
-            document.getElementById('videodiv').style.display = 'none';
-            document.getElementById('clipdiv').style.display = 'block';
-            document.getElementById('videotextdiv').style.display = 'block';
+            manageDoc(0, 0, 0, 1, 1);
             document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
             
             let content = document.getElementById('donationText').innerHTML;
@@ -226,12 +212,20 @@ function convert_time(duration) {
     return total;
 }
 
+function manageDoc(a, b, c, d, e) {
+    document.getElementById('countdiv').style.display = (a ? 'block' : 'none');
+    document.getElementById('textdiv').style.display = (b ? 'block' : 'none'); 
+    document.getElementById('videodiv').style.display = (c ? 'block' : 'none');
+    document.getElementById('clipdiv').style.display = (d ? 'block' : 'none');
+    document.getElementById('videotextdiv').style.display = (e ? 'block' : 'none');
+}
+
+function delay(sec) {
+    return new Promise(resolve => setTimeout(resolve, sec*1000));
+}
+
 function pause() {
-    document.getElementById('countdiv').style.display = 'none';
-    document.getElementById('textdiv').style.display = 'none'; 
-    document.getElementById('videodiv').style.display = 'none';
-    document.getElementById('clipdiv').style.display = 'none';
-    document.getElementById('videotextdiv').style.display = 'none';
+    manageDoc(0, 0, 0, 0, 0);
     document.getElementById('videoiframe').src = 'about:blank';
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
