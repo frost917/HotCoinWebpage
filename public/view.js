@@ -1,6 +1,7 @@
 let now = document.getElementById('counter').innerHTML;
 let len = 0;
 const socket = io.connect('https://hotsorry.herokuapp.com');
+let myTimeout;
 responsiveVoice.setDefaultVoice('Korean Female');
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
@@ -103,8 +104,16 @@ async function playDonation(data) {
 
             let regex = /([^따]*)(.*)/;
             let match = str.match(regex);
-            responsiveVoice.speak(str, 'Korean Female');
-            let speakInterval = setInterval(() => {
+            responsiveVoice.speak(str, 'Korean Female', { onend: function() {
+                myTimeout = setTimeout(() => {
+                    $("div").fadeOut();                                     
+                    now++;
+                    setTimeout(() => {
+                        func(); 
+                    }, 2000);
+                }, 4000);
+            }});
+            /*let speakInterval = setInterval(() => {
                 if(!responsiveVoice.isPlaying()) {
                     clearInterval(speakInterval);
                     setTimeout(() => {
@@ -115,7 +124,7 @@ async function playDonation(data) {
                         }, 2000);
                     }, 4000);
                 }
-            }, 1000);
+            }, 1000);*/
         }
 
         else if(type == 'VIDEO') {
@@ -223,7 +232,7 @@ function manageDoc(a, b, c, d, e) {
 }
 
 function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise(resolve => myTimeout = setTimeout(resolve, ms));
 }
 
 function pause() {
@@ -232,6 +241,7 @@ function pause() {
     document.getElementById('clipiframe').src = 'about:blank';
     responsiveVoice.cancel();
     window.speechSynthesis.cancel();
+    if(myTimeout) clearTimeout(myTimeout);
 }
 
 function resume() {
