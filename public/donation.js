@@ -25,6 +25,7 @@ $(document).ready(function() {
             return res;
         })
         .then((data) => {
+            console.log(data);
             window.location.href = 'https://hotsorry.herokuapp.com/success';
             console.log('yeah');   
         });
