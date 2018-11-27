@@ -102,7 +102,7 @@ async function playDonation() {
 
             console.log(content);
             console.log(content.length);
-            await delay(content.legnth*1000);
+            await delay(10000);
             $("div").fadeOut();
             donationQueue.shift();
 
