@@ -88,7 +88,8 @@ async function playDonation() {
             $("div").fadeIn();
             manageDoc(0, 1, 0, 0, 0);
 
-            responsiveVoice.speak(content, 'Korean Female', { onend: function() {
+            /*responsiveVoice.speak(content, 'Korean Female', { onend: function() {
+                console.log('ended');
                 myTimeout = setTimeout(() => {
                     $("div").fadeOut();
                     donationQueue.shift();
@@ -96,7 +97,15 @@ async function playDonation() {
                         playDonation(); 
                     }, 2000);
                 }, 4000);
-            }});
+            }});*/
+            responsiveVoice.speak(content, 'Korean Female');
+            
+            await delay(content.legnth*1000/3);
+            $("div").fadeOut();
+            donationQueue.shift();
+
+            await delay(2000);
+            playDonation();
         }
 
         else if(type == 'VIDEO') {
