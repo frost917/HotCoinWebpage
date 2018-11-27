@@ -3,15 +3,18 @@ $(document).ready(function() {
     document.getElementById('coin').value = document.getElementById('usercoin').innerHTML;
 
     $('#formDonate').submit(function(event) {
+        console.log('버튼눌름');
         event.preventDefault();
         
         const formData = {};
-        formData['id'] = $('#id').val();
-        formData['coin'] = $('#coin').val();
-        formData['name'] = $('#name').val();
-        formData['price'] = $('#price').val();
-        formData['types'] = $('#types').val();
-        formData['paragrapth'] = $('#paragraph').val();
+        formData['id'] = $('#id').value;
+        formData['coin'] = $('#coin').value;
+        formData['name'] = $('#name').value;
+        formData['price'] = $('#price').value;
+        formData['types'] = $('#types').value;
+        formData['paragrapth'] = $('#paragraph').value;
+
+        console.log(formData);
 
         $.ajax({
             url: '/success',
