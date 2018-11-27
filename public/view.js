@@ -99,16 +99,15 @@ async function playDonation() {
                 }, 4000);
             }});*/
             responsiveVoice.speak(content, 'Korean Female');
+            const delaytime = parseInt(content.length)*1000;
 
-            console.log(content);
-            console.log(content.length);
             myTimeout = setTimeout(() => {
                 $("div").fadeOut();
                 donationQueue.shift();
                 setTimeout(() => {
                     playDonation(); 
                 }, 2000);
-            }, parseInt(content.length)*1000/2+3000);
+            }, delaytime+3000);
         }
 
         else if(type == 'VIDEO') {
