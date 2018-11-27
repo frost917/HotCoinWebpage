@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8">
     <title>헛코로 후원하기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <link rel="stylesheet" href="./assets/css/donation.css">
   </head>
   <body>
@@ -13,7 +15,7 @@
     <div class="row">
         <p class="col-p"><%= id %>님의 현재 코인: <%= coin %>코인</p>
     </div>
-    <form action="/success" method="POST" id="formDonate">
+    <form action="" id="formDonate">
         <div class="row">
             <input type="hidden" name="id" id="id">
             <input type="hidden" name="coin" id="coin">

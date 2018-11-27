@@ -55,8 +55,12 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.render('donationSuccess.html');
             });
         });
-        
-        io.emit('donated', req.body);
+
+        io.on('connection', function(socket) {
+            socket.on('donated', (data) => {
+                io.emit('donated', data);
+            });
+        });
     });
     app.get('/fail', (req, res) => {
         res.render('donationFail.html');
