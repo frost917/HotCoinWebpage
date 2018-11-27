@@ -64,8 +64,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             }
             User.update({ id: donationObj.id }, { $set: {  coin: donationObj.coin-donationObj.price } }, (err, users) => {
                 console.log(donationObj.id + ' ' + donationObj.coin);
-                //res.redirect('/success');
-                res.render('donationSuccess.html');
+                res.redirect('/success');
+                //res.render('donationSuccess.html');
             });
         });
         console.log('ok');

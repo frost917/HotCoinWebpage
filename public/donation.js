@@ -15,19 +15,17 @@ $(document).ready(function() {
         formData['paragraph'] = document.getElementById('paragraph').value;
         socket.emit('donated', formData);
         fetch('/success', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            })
-            .then((res) => {
-                if(res.ok) {
-                    return res.json();
-                }
-            })
-            .then((data) => {
-                console.log('yeah');   
-            });
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then((res) => {
+            return res;
+        })
+        .then((data) => {
+            console.log('yeah');   
+        });
     });
 });
