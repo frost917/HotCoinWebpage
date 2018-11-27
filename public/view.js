@@ -47,6 +47,8 @@ async function getVideoLength(id) {
 socket.on('donated', (data) => {
     console.log('pushed');
     donationQueue.push(data);
+    console.log(data);
+    console.log(donationQueue);
 });
 
 pause();
@@ -72,6 +74,7 @@ async function playDonation() {
     if(donationQueue.length > 0) {
         alarm.play();
         const data = donationQueue[0];
+        console.log(data);
 
         const name = data.name;
         const price = data.price;
