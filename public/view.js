@@ -108,7 +108,7 @@ async function playDonation() {
                 setTimeout(() => {
                     playDonation(); 
                 }, 2000);
-            }, content.length*1000/3+3000);
+            }, parseInt(content.length)*1000/2+3000);
         }
 
         else if(type == 'VIDEO') {
