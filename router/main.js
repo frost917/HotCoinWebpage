@@ -43,12 +43,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
             return;
         }
-
-        if(price > coin) {
-            res.redirect('/fail');
-            return;
-        }
-
+        
         let info = new Info();
         info.name = donationObj.name;
         info.price = donationObj.price;

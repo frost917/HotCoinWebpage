@@ -99,7 +99,7 @@ async function playDonation() {
                 }, 4000);
             }});*/
             responsiveVoice.speak(content, 'Korean Female');
-            const delaytime = parseInt(content.length)*1000/3;
+            const delaytime = parseInt(content.length)*1000/4;
 
             myTimeout = setTimeout(() => {
                 $("div").fadeOut();
