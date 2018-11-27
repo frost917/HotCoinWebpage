@@ -27,7 +27,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.post('/success', (req, res) => {
-        const donationObj = JSON.parse(req.body);
+        const donationObj = JSON.parse(req);
         if(!donationObj.name || donationObj.price <= 0 || !donationObj.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
             return;
@@ -38,7 +38,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             return;
         }
 
-        let info = new Info();
+        /*let info = new Info();
         info.name = donationObj.name;
         info.price = donationObj.price;
         info.type = donationObj.types;
@@ -61,7 +61,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             socket.on('donated', (data) => {
                 io.emit('donated', data);
             });
-        });
+        });*/
         console.log('ok');
     });
     app.get('/fail', (req, res) => {
