@@ -12,7 +12,7 @@ $(document).ready(function() {
         formData['name'] = document.getElementById('name').value;
         formData['price'] = document.getElementById('price').value;
         formData['types'] = document.getElementById('types').value;
-        formData['paragrapth'] = document.getElementById('paragraph').value;
+        formData['paragraph'] = document.getElementById('paragraph').value;
 
         console.log(formData);
 
