@@ -7,12 +7,12 @@ $(document).ready(function() {
         event.preventDefault();
         
         const formData = {};
-        formData['id'] = $('#id').value;
-        formData['coin'] = $('#coin').value;
-        formData['name'] = $('#name').value;
-        formData['price'] = $('#price').value;
-        formData['types'] = $('#types').value;
-        formData['paragrapth'] = $('#paragraph').value;
+        formData['id'] = document.getElementById('id').value;
+        formData['coin'] = document.getElementById('coin').value;
+        formData['name'] = document.getElementById('name').value;
+        formData['price'] = document.getElementById('price').value;
+        formData['types'] = document.getElementById('types').value;
+        formData['paragrapth'] = document.getElementById('paragraph').value;
 
         console.log(formData);
 
