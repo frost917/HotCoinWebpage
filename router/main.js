@@ -28,7 +28,10 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.post('/success', (req, res) => {
         const donationObj = JSON.parse(req.body);
-        const name = donationObj.name;
+        console.log(donationObj);
+        res.render('donationSuccess.html');
+        console.log(donationObj);
+        /*const name = donationObj.name;
         const price = parseInt(donationObj.price);
         const paragraph = donationObj.paragraph;
         const id = donationObj.id;
@@ -42,7 +45,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         if(price > coin) {
             res.redirect('/fail');
             return;
-        }
+        }*/
 
         /*let info = new Info();
         info.name = donationObj.name;
