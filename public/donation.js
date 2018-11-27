@@ -25,8 +25,12 @@ $(document).ready(function() {
             return res;
         })
         .then((data) => {
-            console.log(data);
-            window.location.href = 'https://hotsorry.herokuapp.com/success';
+            if(document.getElementById('price').value > document.getElementById('coin').value) {
+                window.location.href = 'https://hotsorry.herokuapp.com/fail';
+            }
+            else {
+                window.location.href = 'https://hotsorry.herokuapp.com/success';
+            }
             console.log('yeah');   
         });
     });
