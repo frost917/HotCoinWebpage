@@ -13,17 +13,13 @@ $(document).ready(function() {
         formData['price'] = document.getElementById('price').value;
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
-
+        socket.emit('donated', formData);
         $.ajax({
             url: '/success',
             dataType: 'json',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(formData),
-            success: function(data) {
-                console.log('client');
-                socket.emit('donated', data);
-            }
         });
     });
 });
