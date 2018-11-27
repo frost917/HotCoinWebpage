@@ -14,12 +14,20 @@ $(document).ready(function() {
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
         socket.emit('donated', formData);
-        $.ajax({
-            url: '/success',
-            dataType: 'json',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-        });
+        fetch('/success', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then((res) => {
+                if(res.ok) {
+                    return res.json();
+                }
+            })
+            .then((data) => {
+                console.log('yeah');   
+            });
     });
 });

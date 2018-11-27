@@ -26,7 +26,11 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.send(users);
         });
     });
-    app.post('/success', (req, res) => {
+    app.route('/success')
+    .get((req, res) => {
+        res.render('donationSuccess.html');
+    })
+    .post((req, res) => {
         const donationObj = req.body;
         
         const name = donationObj.name;
@@ -60,6 +64,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             }
             User.update({ id: donationObj.id }, { $set: {  coin: donationObj.coin-donationObj.price } }, (err, users) => {
                 console.log(donationObj.id + ' ' + donationObj.coin);
+                //res.redirect('/success');
                 res.render('donationSuccess.html');
             });
         });

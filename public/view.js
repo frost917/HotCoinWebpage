@@ -90,7 +90,7 @@ async function playDonation() {
 
             responsiveVoice.speak(content, 'Korean Female', { onend: function() {
                 myTimeout = setTimeout(() => {
-                    $("div").fadeOut();                                     
+                    $("div").fadeOut();
                     donationQueue.shift();
                     setTimeout(() => {
                         playDonation(); 
