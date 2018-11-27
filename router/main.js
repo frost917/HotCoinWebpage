@@ -27,21 +27,22 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.post('/success', (req, res) => {
-        if(!req.body.name || req.body.price <= 0 || !req.body.paragraph) {
+        donationObj = JSON.parse(req.body);
+        if(!donationObj.name || donationObj.price <= 0 || !donationObj.paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
             return;
         }
 
-        if(req.body.price > parseInt(req.body.coin)) {
+        if(donationObj.price > parseInt(donationObj.coin)) {
             res.redirect('/fail');
             return;
         }
 
         let info = new Info();
-        info.name = req.body.name;
-        info.price = req.body.price;
-        info.type = req.body.types;
-        info.content = req.body.paragraph;
+        info.name = donationObj.name;
+        info.price = donationObj.price;
+        info.type = donationObj.types;
+        info.content = donationObj.paragraph;
         info.loaded = false;
 
         info.save((err) => {
@@ -50,8 +51,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.json({result: 0});
                 return;
             }
-            User.update({ id: req.body.id }, { $set: {  coin: req.body.coin-req.body.price } }, (err, users) => {
-                console.log(req.body.id + ' ' + req.body.coin);
+            User.update({ id: donationObj.id }, { $set: {  coin: donationObj.coin-donationObj.price } }, (err, users) => {
+                console.log(donationObj.id + ' ' + donationObj.coin);
                 res.render('donationSuccess.html');
             });
         });
