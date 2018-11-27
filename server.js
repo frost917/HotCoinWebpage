@@ -94,6 +94,9 @@ passport.use('twitch', new OAuth2Strategy({
 ));
 
 io.on('connection', function(socket) {
+    socket.on('donated', (data) => {
+        io.emit('donated', data);
+    });
     socket.on('skip', () => {
         io.emit('skip');
     });

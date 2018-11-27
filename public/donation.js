@@ -1,3 +1,4 @@
+const socket = io();
 $(document).ready(function() {
     document.getElementById('id').value = document.getElementById('userid').innerHTML;
     document.getElementById('coin').value = document.getElementById('usercoin').innerHTML;

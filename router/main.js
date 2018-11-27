@@ -63,12 +63,6 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.render('donationSuccess.html');
             });
         });
-
-        io.on('connection', function(socket) {
-            socket.on('donated', (data) => {
-                io.emit('donated', data);
-            });
-        });
         console.log('ok');
     });
     app.get('/fail', (req, res) => {
