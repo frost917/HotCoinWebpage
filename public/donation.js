@@ -25,7 +25,7 @@ $(document).ready(function() {
             return res;
         })
         .then((data) => {
-            if(document.getElementById('price').value > document.getElementById('coin').value) {
+            if(parseInt(document.getElementById('price').value) > parseInt(document.getElementById('coin').value)) {
                 window.location.href = 'https://hotsorry.herokuapp.com/fail';
             }
             else {
