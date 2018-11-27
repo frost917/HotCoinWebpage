@@ -1,8 +1,7 @@
-let now = document.getElementById('counter').innerHTML;
-let len = 0;
 const socket = io.connect('https://hotsorry.herokuapp.com');
 let myTimeout;
 responsiveVoice.setDefaultVoice('Korean Female');
+let donationQueue = new Array();
 
 let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
@@ -33,27 +32,10 @@ function onPlayerStateChange(event) {
         $('div').fadeOut();
         now++;
         setTimeout(() => {
-            func(); 
+            playDonation(); 
         }, 2000);         
     }
 }*/
-async function func() {
-    document.getElementById('counter').innerHTML = now;
-
-    fetch('/counter/post', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ count: now })
-    })
-    .then(res => res.json())
-    .then(res => console.log('포스트'));
-
-    const fetchDonation = await fetch("/donations");
-    const donationJSON = await fetchDonation.json();
-    playDonation(donationJSON);
-}
 
 async function getVideoLength(id) {
     const fetchVidLen = await fetch('https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE');
@@ -62,8 +44,12 @@ async function getVideoLength(id) {
     return convert_time(vidLenJSON['items'][0]['contentDetails']['duration']);
 }
 
+socket.on('donated', (data) => {
+    donationQueue.push(data);
+});
+
 pause();
-func();
+playDonation();
 
 socket.on('skip', () => {
     skip();
@@ -81,16 +67,15 @@ socket.on('replay', (num) => {
     replay(num);
 });
 
-async function playDonation(data) {
-    let obj = data;
-    len = obj.length; 
-
-    if(now < len) {
+async function playDonation() {
+    if(donationQueue.length > 0) {
         alarm.play();
-        let name = obj[now].name;
-        let price = obj[now].price;
-        let content = obj[now].content;
-        let type = obj[now].type;
+        const data = donationQueue[0];
+
+        const name = data.name;
+        const price = dtat.price;
+        const content = data.content;
+        const type = data.type;
         document.getElementById('name').innerHTML = name;
         document.getElementById('price').innerHTML = price;
         document.getElementById('donationText').innerHTML = content;
@@ -99,32 +84,15 @@ async function playDonation(data) {
             $("div").fadeIn();
             manageDoc(0, 1, 0, 0, 0);
 
-            let str = document.getElementById('donationText').innerHTML;
-            let len = str.length;
-
-            let regex = /([^따]*)(.*)/;
-            let match = str.match(regex);
-            responsiveVoice.speak(str, 'Korean Female', { onend: function() {
+            responsiveVoice.speak(content, 'Korean Female', { onend: function() {
                 myTimeout = setTimeout(() => {
                     $("div").fadeOut();                                     
-                    now++;
+                    donationQueue.shift();
                     setTimeout(() => {
-                        func(); 
+                        playDonation(); 
                     }, 2000);
                 }, 4000);
             }});
-            /*let speakInterval = setInterval(() => {
-                if(!responsiveVoice.isPlaying()) {
-                    clearInterval(speakInterval);
-                    setTimeout(() => {
-                        $("div").fadeOut();                                     
-                        now++;
-                        setTimeout(() => {
-                            func(); 
-                        }, 2000);
-                    }, 4000);
-                }
-            }, 1000);*/
         }
 
         else if(type == 'VIDEO') {
@@ -140,9 +108,9 @@ async function playDonation(data) {
             else {
                 console.log(match[2]);
                 let length = price*2;
-                document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/'+match[2]+'?autoplay=1';
+                document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
 
-                const time = await getVideoLength(match[2])
+                const time = await getVideoLength(match[2]);
                 if(length > time) {
                     length = time;
                     console.log(length);
@@ -151,10 +119,10 @@ async function playDonation(data) {
                 await delay(length*1000);
                 document.getElementById('videoiframe').src = 'about:blank';
                 $("div").fadeOut();
-                now++;
+                donationQueue.shift();
 
                 await delay(2000);
-                func();
+                playDonation();
             }
         }  
         
@@ -163,8 +131,7 @@ async function playDonation(data) {
             manageDoc(0, 0, 0, 1, 1);
             document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
             
-            let content = document.getElementById('donationText').innerHTML;
-            let videoid = content.split('/');
+            const videoid = content.split('/');
             const length = price*2000;
             if(videoid[2] == 'clips.twitch.tv') videoid = videoid[3];
             else if(videoid[2] == 'www.twitch.tv') videoid = videoid[5];
@@ -184,30 +151,29 @@ async function playDonation(data) {
                 }
             })
             .then((data) => {
-                console.log(price);
                 if(price > data['duration']) {
                     length = data['duration']*1000;
-                    console.log(length);
                 }
                 setTimeout(() => {
                     document.getElementById('clipiframe').src = 'about:blank'
                     $("div").fadeOut();
-                    now++;
+                    donationQueue.shift();
                     setTimeout(() => {
-                        func();
+                        playDonation();
                     }, 2000);
                 }, length+1000);     
             });
         }
+
         else if(type == 'IMAGE' || type == 'AUDIO') {
             now++;
-            func();
+            playDonation();
         }
     }
     else {
         setTimeout(() => {
             console.log(now);
-            func();
+            playDonation();
         }, 1000);
     }
 }
@@ -245,15 +211,15 @@ function pause() {
 }
 
 function resume() {
-    func();
+    playDonation();
 }
 
 function skip() {
     pause();
-    if(now < len) {
-        now++;
+    if(donationQueue.length > 0) {
+        donationQueue.shift();
     }
-    func();
+    playDonation();
 }
 
 function replay(num) {
@@ -261,11 +227,7 @@ function replay(num) {
     if(num <= now) {
         now = num;
     }
-    func();
-}
-
-function playTTS(text) {
-    
+    playDonation();
 }
 
 /*function playTTS(text) {
@@ -280,7 +242,7 @@ function playTTS(text) {
             $("div").fadeOut();                                     
             now++;
             setTimeout(() => {
-                func(); 
+                playDonation(); 
             }, 2000);
         }, 1000);
     } });

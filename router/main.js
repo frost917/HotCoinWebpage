@@ -54,8 +54,9 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 console.log(req.body.id + ' ' + req.body.coin);
                 res.render('donationSuccess.html');
             });
-        });    
+        });
         
+        io.emit('donated', req.body);
     });
     app.get('/fail', (req, res) => {
         res.render('donationFail.html');
