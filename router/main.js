@@ -27,11 +27,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         });
     });
     app.post('/success', (req, res) => {
-        //const donationObj = JSON.parse(req.body);
         const donationObj = req.body;
-        console.log(req.body);
-        //res.render('donationSuccess.html');
-        console.log(req.body);
+        
         const name = donationObj.name;
         const price = parseInt(donationObj.price);
         const paragraph = donationObj.paragraph;

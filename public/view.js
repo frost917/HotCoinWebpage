@@ -166,13 +166,11 @@ async function playDonation() {
         }
 
         else if(type == 'IMAGE' || type == 'AUDIO') {
-            now++;
             playDonation();
         }
     }
     else {
         setTimeout(() => {
-            console.log(now);
             playDonation();
         }, 1000);
     }
@@ -224,9 +222,6 @@ function skip() {
 
 function replay(num) {
     pause();
-    if(num <= now) {
-        now = num;
-    }
     playDonation();
 }
 
