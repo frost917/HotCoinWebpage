@@ -4,14 +4,17 @@ $(document).ready(function() {
 
     $('#formDonate').submit(function(event) {
         event.preventDefault();
-        const formData = $('#formDonate').serialize();
+        const formData = {};
+        $('#formDonate').serializeArray().forEach((element) => {
+            formData[element.name] = element.value;
+        });
 
         $.ajax({
             url: '/success',
             dataType: 'json',
             type: 'POST',
             contentType: 'application/json',
-            data: formData,
+            data: JSON.stringify(formData),
             success: function(data) {
                 socket.emit('donated', data);
             }
