@@ -28,10 +28,11 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
     app.post('/success', (req, res) => {
         //const donationObj = JSON.parse(req.body);
+        const donationObj = req.body;
         console.log(req.body);
-        res.render('donationSuccess.html');
+        //res.render('donationSuccess.html');
         console.log(req.body);
-        /*const name = donationObj.name;
+        const name = donationObj.name;
         const price = parseInt(donationObj.price);
         const paragraph = donationObj.paragraph;
         const id = donationObj.id;
@@ -45,9 +46,9 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         if(price > coin) {
             res.redirect('/fail');
             return;
-        }*/
+        }
 
-        /*let info = new Info();
+        let info = new Info();
         info.name = donationObj.name;
         info.price = donationObj.price;
         info.type = donationObj.types;
@@ -70,7 +71,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             socket.on('donated', (data) => {
                 io.emit('donated', data);
             });
-        });*/
+        });
         console.log('ok');
     });
     app.get('/fail', (req, res) => {
