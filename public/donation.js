@@ -4,10 +4,14 @@ $(document).ready(function() {
 
     $('#formDonate').submit(function(event) {
         event.preventDefault();
+        
         const formData = {};
-        $('#formDonate').serializeArray().forEach((element) => {
-            formData[element.name] = element.value;
-        });
+        formData['id'] = $('#id').val();
+        formData['coin'] = $('#coin').val();
+        formData['name'] = $('#name').val();
+        formData['price'] = $('#price').val();
+        formData['types'] = $('#types').val();
+        formData['paragrapth'] = $('#paragraph').val();
 
         $.ajax({
             url: '/success',
