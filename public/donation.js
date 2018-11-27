@@ -1,10 +1,9 @@
-const socket = io();
+const socket = io.connect('https://hotsorry.herokuapp.com');
 $(document).ready(function() {
     document.getElementById('id').value = document.getElementById('userid').innerHTML;
     document.getElementById('coin').value = document.getElementById('usercoin').innerHTML;
 
     $('#formDonate').submit(function(event) {
-        console.log('버튼눌름');
         event.preventDefault();
         
         const formData = {};
@@ -15,8 +14,6 @@ $(document).ready(function() {
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
 
-        console.log(formData);
-
         $.ajax({
             url: '/success',
             dataType: 'json',
@@ -24,6 +21,7 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify(formData),
             success: function(data) {
+                console.log('client');
                 socket.emit('donated', data);
             }
         });

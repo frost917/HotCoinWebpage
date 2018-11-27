@@ -45,6 +45,7 @@ async function getVideoLength(id) {
 }
 
 socket.on('donated', (data) => {
+    console.log('pushed');
     donationQueue.push(data);
 });
 
