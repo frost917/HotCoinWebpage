@@ -79,7 +79,7 @@ async function playDonation() {
         const name = data.name;
         const price = data.price;
         const content = data.content;
-        const type = data.type;
+        const type = data.types;
         document.getElementById('name').innerHTML = name;
         document.getElementById('price').innerHTML = price;
         document.getElementById('donationText').innerHTML = content;
