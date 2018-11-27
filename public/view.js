@@ -102,12 +102,13 @@ async function playDonation() {
 
             console.log(content);
             console.log(content.length);
-            await delay(10000);
-            $("div").fadeOut();
-            donationQueue.shift();
-
-            await delay(2000);
-            playDonation();
+            myTimeout = setTimeout(() => {
+                $("div").fadeOut();
+                donationQueue.shift();
+                setTimeout(() => {
+                    playDonation(); 
+                }, 2000);
+            }, 4000);
         }
 
         else if(type == 'VIDEO') {
