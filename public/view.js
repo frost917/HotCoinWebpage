@@ -147,7 +147,7 @@ async function playDonation() {
             document.getElementById('videotext').innerHTML = name + '님 ' + price + '헛코 후원 감사합니다.';
             
             let videoid = content.split('/');
-            const length = price*2000;
+            let length = price*2000;
             if(videoid[2] == 'clips.twitch.tv') videoid = videoid[3];
             else if(videoid[2] == 'www.twitch.tv') videoid = videoid[5];
             console.log(videoid);
