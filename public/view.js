@@ -166,7 +166,7 @@ async function playDonation() {
                 }
             })
             .then((data) => {
-                if(price > data['duration']) {
+                if(price*2 > data['duration']) {
                     length = data['duration']*1000;
                 }
                 setTimeout(() => {
