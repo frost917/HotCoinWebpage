@@ -13,7 +13,7 @@ $(document).ready(function() {
         formData['price'] = document.getElementById('price').value;
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
-        socket.emit('donated', formData);
+        
         fetch('/success', {
             method: 'POST',
             headers: {
@@ -29,6 +29,7 @@ $(document).ready(function() {
                 window.location.href = 'https://hotsorry.herokuapp.com/fail';
             }
             else {
+                socket.emit('donated', formData);
                 window.location.href = 'https://hotsorry.herokuapp.com/success';
             }
             console.log('yeah');   
