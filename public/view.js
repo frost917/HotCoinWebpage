@@ -99,8 +99,10 @@ async function playDonation() {
                 }, 4000);
             }});*/
             responsiveVoice.speak(content, 'Korean Female');
-            
-            await delay(content.legnth*1000/3);
+
+            console.log(content);
+            console.log(content.length);
+            await delay(content.legnth*1000);
             $("div").fadeOut();
             donationQueue.shift();
 
