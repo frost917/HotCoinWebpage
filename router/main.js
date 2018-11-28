@@ -35,7 +35,7 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
     .get((req, res) => {
         res.render('donationSuccess.html');
     })
-    .post((req, res) => {
+    .post(csrfProtection, (req, res) => {
         const donationObj = req.body;
         
         const name = donationObj.name;
