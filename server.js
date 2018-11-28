@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
-const csrf = require('csurf');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
 const app = express();
@@ -23,7 +22,7 @@ const Info = require('./models/donationInfo');
 const Counter = require('./models/counter');
 const User = require('./models/user');
 
-const csrfProtection = csrf({cookie: false});
+
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
@@ -123,7 +122,7 @@ io.on('connection', function(socket) {
     });
 });
 
-const router = require('./router/main')(app, passport, io, csrfProtection, Info, Counter, User);
+const router = require('./router/main')(app, passport, io, Info, Counter, User);
 
 server.listen((process.env.PORT || 3000), () => {
     console.log('start');

@@ -1,4 +1,6 @@
-module.exports = function(app, passport, io, csrfProtection, Info, Counter, User) {
+const csrf = require('csurf');
+const csrfProtection = csrf({cookie: false});
+module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
         res.render('about', {
             login: req.isAuthenticated()
