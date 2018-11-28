@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const helmet = require('helmet');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
 const app = express();
@@ -24,11 +25,19 @@ const User = require('./models/user');
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
+app.use(helmet());
 app.use(express.static('public'));
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(session({ secret: SESSION_SECRET, resave: false, saveUninitialized: false }));
+app.use(
+    session({ 
+        name: 'sessionId',
+        secret: SESSION_SECRET, 
+        resave: false, 
+        saveUninitialized: false 
+    })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
