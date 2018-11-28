@@ -90,7 +90,7 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
             }
             User.update({ id: id }, { $set: {  coin: coin-price } }, (err, users) => {
                 console.log(id + ' ' + coin);
-                io.socket.emit('donated', donationObj);
+                io.emit('donated', donationObj);
                 res.redirect('/success');
             });
         });
