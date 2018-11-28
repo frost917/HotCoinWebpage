@@ -1,3 +1,5 @@
+const csrf = require('csurf');
+const csrfProtection = csrf({cookie: true});
 module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
         res.render('about', {
@@ -41,7 +43,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
 
     app.route('/donate')
-    .get((req, res) => {
+    .get(csrfProtection, (req, res) => {
         if(req.isAuthenticated()) {
             User.findOne({ id: req.user.id }, (err, oneuser) => {
                 res.render('donation', {
@@ -60,7 +62,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     })
-    .post((req, res) => {
+    .post(csrfProtection, (req, res) => {
         const donationObj = req.body;
         
         const name = donationObj.name;
@@ -70,7 +72,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         const id = donationObj.id;
         const coin = parseInt(donationObj.coin);
 
-        if(!name || price <= 0 || !paragraph) {
+        if(!name || price <= 10 || !paragraph) {
             res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
             return;
         }
