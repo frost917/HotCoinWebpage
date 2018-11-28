@@ -103,7 +103,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         Info.find((err, donations) => {
             if(err) return res.status(500).send({error: 'database failure'});
             res.render('donationlist', {
-                data: donations
+                data: JSON.stringify(donations)
             });
         });
     });
