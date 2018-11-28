@@ -1,9 +1,10 @@
-module.exports = function(app, passport, io, Info, Counter, User) {
+module.exports = function(app, passport, io, csrfProtection, Info, Counter, User) {
     app.get('/', (req, res) => {
         res.render('about', {
             login: req.isAuthenticated()
         });
     });
+
     app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
     app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
     app.get('/counter/get', (req, res) => {
@@ -11,21 +12,25 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.json(counters);
         });  
     });
+
     app.post('/counter/post', (req, res) => {
         Counter.update({ }, { $set: { count: req.body.count } }, (err, counters) => {
             res.send(counters);
         });
     });
+
     app.get('/coins/get', (req, res) => {
         User.find((err, users) => {
             res.json(users);
         });
     });
+
     app.post('/coins/post', (req, res) => {
         User.update({ id: req.body.id }, { $set: {  coin: req.body.coin } }, (err, users) => {
             res.send(users);
         });
     });
+
     app.route('/success')
     .get((req, res) => {
         res.render('donationSuccess.html');
@@ -35,6 +40,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         
         const name = donationObj.name;
         const price = parseInt(donationObj.price);
+        const type = donationObj.types;
         const paragraph = donationObj.paragraph;
         const id = donationObj.id;
         const coin = parseInt(donationObj.coin);
@@ -45,10 +51,10 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         }
         
         let info = new Info();
-        info.name = donationObj.name;
-        info.price = donationObj.price;
-        info.type = donationObj.types;
-        info.content = donationObj.paragraph;
+        info.name = name;
+        info.price = price;
+        info.type = type;
+        info.content = paragraph;
         info.loaded = false;
 
         info.save((err) => {
@@ -57,17 +63,18 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.json({result: 0});
                 return;
             }
-            User.update({ id: donationObj.id }, { $set: {  coin: donationObj.coin-donationObj.price } }, (err, users) => {
-                console.log(donationObj.id + ' ' + donationObj.coin);
+            User.update({ id: id }, { $set: {  coin: coin-price } }, (err, users) => {
+                console.log(id + ' ' + coin);
                 res.redirect('/success');
-                //res.render('donationSuccess.html');
             });
         });
         console.log('ok');
     });
+
     app.get('/fail', (req, res) => {
         res.render('donationFail.html');
     });
+
     app.get('/donate', (req, res) => {
         if(req.isAuthenticated()) {
             User.findOne({ id: req.user.id }, (err, oneuser) => {
@@ -86,12 +93,14 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     });
+
     app.get('/donations', (req, res) => {
         Info.find((err, donations) => {
             if(err) return res.status(500).send({error: 'database failure'});
             res.json(donations);
         });
     });
+
     app.get('/manage', (req, res) => {
         if(req.isAuthenticated()) {
             if(isAdmin(req.user.id)) {
@@ -105,6 +114,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     });
+
     app.route('/manage/coin')
     .get(function(req, res) {
         if(req.isAuthenticated()) {
@@ -147,6 +157,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             }
         });
     });
+
     app.get('/view', (req, res) => {
         Counter.find((err, counters) => {
             let count = counters[0].count;
@@ -156,6 +167,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             });
         });      
     });
+    
     function isAdmin(id) {
         const listAdmin = ['wotjdeowkd', 'makukthegamer', 'wotjdwlqdlek'];
         return listAdmin.includes(id);
