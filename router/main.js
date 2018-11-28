@@ -1,5 +1,3 @@
-const csrf = require('csurf');
-const csrfProtection = csrf({cookie: false});
 module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
         res.render('about', {
@@ -43,7 +41,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
 
     app.route('/donate')
-    .get(csrfProtection, (req, res) => {
+    .get((req, res) => {
         if(req.isAuthenticated()) {
             User.findOne({ id: req.user.id }, (err, oneuser) => {
                 res.render('donation', {
@@ -62,7 +60,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             res.redirect('/');
         }
     })
-    .post(csrfProtection, (req, res) => {
+    .post((req, res) => {
         const donationObj = req.body;
         
         const name = donationObj.name;

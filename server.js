@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const helmet = require('helmet');
+const csrf = require('csurf');
 const passport = require('passport');
 const OAuth2Strategy = require('passport-oauth2').Strategy;
 const app = express();
@@ -39,6 +40,7 @@ app.use(
         saveUninitialized: false 
     })
 );
+app.use(csrf({ cookie: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
