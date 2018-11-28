@@ -102,7 +102,9 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/donations', (req, res) => {
         Info.find((err, donations) => {
             if(err) return res.status(500).send({error: 'database failure'});
-            res.json(donations);
+            res.render('donationlist', {
+                data: donations
+            });
         });
     });
 
