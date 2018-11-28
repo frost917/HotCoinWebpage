@@ -35,6 +35,31 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
     .get((req, res) => {
         res.render('donationSuccess.html');
     })
+
+    app.get('/fail', (req, res) => {
+        res.render('donationFail.html');
+    });
+
+    app.route('/donate')
+    .get(csrfProtection, (req, res) => {
+        if(req.isAuthenticated()) {
+            User.findOne({ id: req.user.id }, (err, oneuser) => {
+                res.render('donation', {
+                    id: req.user.id,
+                    coin: oneuser.coin,
+                    csrfToken: req.csrfToken()
+                });
+                io.on('connection', function(socket) {
+                    socket.on('getuser', () => {
+                        io.emit('userdata', req.user);
+                    });
+                });
+            });
+        }
+        else {
+            res.redirect('/');
+        }
+    })
     .post(csrfProtection, (req, res) => {
         const donationObj = req.body;
         
@@ -69,30 +94,6 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
             });
         });
         console.log('ok');
-    });
-
-    app.get('/fail', (req, res) => {
-        res.render('donationFail.html');
-    });
-
-    app.get('/donate', csrfProtection, (req, res) => {
-        if(req.isAuthenticated()) {
-            User.findOne({ id: req.user.id }, (err, oneuser) => {
-                res.render('donation', {
-                    id: req.user.id,
-                    coin: oneuser.coin,
-                    csrfToken: req.csrfToken()
-                });
-                io.on('connection', function(socket) {
-                    socket.on('getuser', () => {
-                        io.emit('userdata', req.user);
-                    });
-                });
-            });
-        }
-        else {
-            res.redirect('/');
-        }
     });
 
     app.get('/donations', (req, res) => {

@@ -14,7 +14,7 @@ $(document).ready(function() {
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
         const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        fetch('/success', {
+        fetch('/donate', {
             credentials: 'same-origin',
             method: 'POST',
             headers: {
