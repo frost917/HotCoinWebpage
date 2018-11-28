@@ -125,7 +125,7 @@ async function playDonation() {
                 let length = price*2;
                 document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
                 const time = await getVideoLength(match[2]);
-                const starttime = content.toString().split('&t')[1];
+                const starttime = content.toString().split('?t=')[1];
                 if(starttime) {
                     document.getElementById('videoiframe').src += '&start='+starttime;
                     time -= starttime;
