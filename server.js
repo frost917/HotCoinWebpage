@@ -23,7 +23,7 @@ const Info = require('./models/donationInfo');
 const Counter = require('./models/counter');
 const User = require('./models/user');
 
-const csrfProtection = csrf({cookie: true});
+const csrfProtection = csrf({cookie: false});
 app.set('views', __dirname + '/public');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
