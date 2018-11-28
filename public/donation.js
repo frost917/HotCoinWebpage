@@ -19,7 +19,7 @@ $(document).ready(function() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'CSRF-Token': token
+                'X-CSRF-Token': token
             },
             body: JSON.stringify(formData)
         })
