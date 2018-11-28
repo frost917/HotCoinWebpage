@@ -14,16 +14,21 @@ $(document).ready(function() {
         formData['price'] = document.getElementById('price').value;
         formData['types'] = document.getElementById('types').value;
         formData['paragraph'] = document.getElementById('paragraph').value;
-        
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
         fetch('/success', {
+            credentials: 'same-origin',
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'CSRF-Token': token
             },
             body: JSON.stringify(formData)
         })
         .then((res) => {
-            return res;
+            if(res.ok) {
+                return res;
+            }
+            alert('csrf');
         })
         .then((data) => {
             if(parseInt(document.getElementById('price').value) > parseInt(document.getElementById('coin').value)) {
