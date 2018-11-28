@@ -75,12 +75,13 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
         res.render('donationFail.html');
     });
 
-    app.get('/donate', (req, res) => {
+    app.get('/donate', csrfProtection, (req, res) => {
         if(req.isAuthenticated()) {
             User.findOne({ id: req.user.id }, (err, oneuser) => {
                 res.render('donation', {
                     id: req.user.id,
-                    coin: oneuser.coin
+                    coin: oneuser.coin,
+                    csrfToken: req.csrfToken()
                 });
                 io.on('connection', function(socket) {
                     socket.on('getuser', () => {
@@ -167,7 +168,7 @@ module.exports = function(app, passport, io, csrfProtection, Info, Counter, User
             });
         });      
     });
-    
+
     function isAdmin(id) {
         const listAdmin = ['wotjdeowkd', 'makukthegamer', 'wotjdwlqdlek'];
         return listAdmin.includes(id);

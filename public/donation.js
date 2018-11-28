@@ -7,6 +7,7 @@ $(document).ready(function() {
         event.preventDefault();
         
         const formData = {};
+        formData['_csrf'] = document.getElementById('csrf').value;
         formData['id'] = document.getElementById('id').value;
         formData['coin'] = document.getElementById('coin').value;
         formData['name'] = document.getElementById('name').value;

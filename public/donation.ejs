@@ -17,6 +17,7 @@
     </div>
     <form action="" id="formDonate">
         <div class="row">
+            <input type="hidden" name="_csrf" id="csrf" value="<%=csrfToken%>">
             <input type="hidden" name="id" id="id">
             <input type="hidden" name="coin" id="coin">
             <div class="col-20l">
