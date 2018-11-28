@@ -1,4 +1,4 @@
-const socket = io.connect('https://hotsorry.herokuapp.com');
+/*const socket = io.connect('https://hotsorry.herokuapp.com');
 $(document).ready(function() {
     document.getElementById('id').value = document.getElementById('userid').innerHTML;
     document.getElementById('coin').value = document.getElementById('usercoin').innerHTML;
@@ -40,4 +40,4 @@ $(document).ready(function() {
             console.log('yeah');   
         });
     });
-});
+});*/

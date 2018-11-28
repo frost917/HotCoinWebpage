@@ -16,8 +16,9 @@
     <div class="row">
         <p class="col-p"><%= id %>님의 현재 코인: <%= coin %>코인</p>
     </div>
-    <form action="" id="formDonate">
+    <form action="/donate" method="POST" id="formDonate">
         <div class="row">
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
             <input type="hidden" name="id" id="id">
             <input type="hidden" name="coin" id="coin">
             <div class="col-20l">
