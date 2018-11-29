@@ -19,8 +19,8 @@
     <form action="/donate" method="POST" id="formDonate">
         <div class="row">
             <input type="hidden" name="_csrf" value="<%=csrfToken%>">
-            <input type="hidden" name="id" id="id">
-            <input type="hidden" name="coin" id="coin">
+            <input type="hidden" name="id" id="id" value="<%= id %>">
+            <input type="hidden" name="coin" id="coin" value="<%= coin %>">
             <div class="col-20l">
                 <input type="text" name="name" id="name" placeholder="이름" required="true">
             </div>
