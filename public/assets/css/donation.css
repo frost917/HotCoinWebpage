@@ -19,7 +19,7 @@ p {
     clear: both;
     display: flex;
 }
-
+/*
 .col-10l {
     float: left;
     flex: 0 0 8%;
@@ -48,4 +48,4 @@ p {
     position: relative;
     padding-left: 8px;
     padding-right: 8px;
-}
+}*/
