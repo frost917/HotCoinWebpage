@@ -65,6 +65,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     .post(csrfProtection, (req, res) => {
         const donationObj = req.body;
         
+        //const image = donationObj.image;
+        const image = 'image_default';
         const name = donationObj.name;
         const price = parseInt(donationObj.price);
         const type = donationObj.types;
@@ -78,11 +80,12 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         }
         
         let info = new Info();
+        info.userid = id;
+        info.image = image;
         info.name = name;
         info.price = price;
         info.type = type;
         info.content = paragraph;
-        info.loaded = false;
 
         info.save((err) => {
             if(err) {
