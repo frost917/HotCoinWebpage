@@ -74,8 +74,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         const id = donationObj.id;
         const coin = parseInt(donationObj.coin);
 
-        if(!name || price <= 10 || !paragraph) {
-            res.send('후원 오류. 빈칸이 있거나 후원 금액이 10 이하이지 않은지 확인하세요.');
+        if(!name || price < 10 || !paragraph || paragraph.length > 200) {
+            res.send('후원 오류.');
             return;
         }
         
