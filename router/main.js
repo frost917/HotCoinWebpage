@@ -17,8 +17,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         }
 
         res.render('home', {
-            login: req.isAuthenticated(),
-            userid: req.body.id
+            id: req.user.id
         });
     });
 
