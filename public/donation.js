@@ -1,5 +1,5 @@
 async function f() {
-    const id = document.getElementById('id').innerHTML;
+    const id = document.getElementById('id').value;
     const fetchCoin = await fetch('https://api.twitch.tv/kraken/users?login=' + id, {
         headers: {
             'Accept': 'application/vnd.twitchtv.v5+json',
