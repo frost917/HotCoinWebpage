@@ -1,0 +1,38 @@
+html, body {
+    height: 100%;
+    background-image: linear-gradient(rgba(22, 127, 57), rgba(150, 237, 137));
+}
+
+body {
+    color: #fff;
+    text-align: center;
+}
+
+.inner {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.rectangle {
+    background-color: rgba(0, 0, 0, .5);
+    border-radius: 25px;
+}
+
+.twitch-icon {
+    color: rgba(100, 65, 164);
+}
+
+@media (min-height: 768px) {
+    .inner {
+        height: 200px;
+        vertical-align: middle;
+    }
+}
+
+@media (min-width: 992px) {
+    .inner {
+        width: 300px;
+    }
+}

@@ -2,10 +2,22 @@ const csrf = require('csurf');
 const csrfProtection = csrf({cookie: true});
 module.exports = function(app, passport, io, Info, Counter, User) {
     app.get('/', (req, res) => {
-        res.render('about', {
-            login: req.isAuthenticated()
-        });
+        if(req.isAuthenticated()) {
+            res.redirect('/home');
+        }
+        else {
+            res.render('loginPage');
+        }
     });
+
+    app.get('/home', (req, res) => {
+        if(!req.isAuthenticated()) {
+            res.redirect('/');
+            return;
+        }
+
+        res.render('about');
+    })
 
     app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
     app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
