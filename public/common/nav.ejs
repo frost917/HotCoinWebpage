@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default sticky-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">헛코닷컴</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/intro">소개</a></li>
+            <li><a href="/donate">후원하기</a></li>
+            <li><a href="/exchange">거래소</a></li>
+            <li><a href="/support">문의하기</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">더보기</a>
+                <ul class="dropdown-menu">
+                    <li><a href="/attendance">출석체크</a></li>
+                    <li><a href="/shop">상점</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <% if(login) { %>
+                <li><a href="/profile/<%= userid %>">프로필</a></li>
+            <% } else { %>
+                <li><a href="/">로그인</a></li>
+            <% } %>
+        </ul>
+    </div>
+</nav>

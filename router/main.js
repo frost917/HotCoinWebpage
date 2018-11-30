@@ -16,8 +16,11 @@ module.exports = function(app, passport, io, Info, Counter, User) {
             return;
         }
 
-        res.render('about');
-    })
+        res.render('home', {
+            login: req.isAuthenticated(),
+            userid: req.body.id
+        });
+    });
 
     app.get('/auth/twitch', passport.authenticate('twitch', { scope: 'user_read' }));
     app.get('/auth/twitch/callback', passport.authenticate('twitch', { successRedirect: '/', failureRedirect: '/' }));
@@ -25,6 +28,30 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         Counter.find((err, counters) => {
             res.json(counters);
         });  
+    });
+
+    app.get('/intro', (req, res) => {
+        res.send('준비중입니다.');
+    });
+
+    app.get('/exchange', (req, res) => {
+        res.send('준비중입니다.');
+    });
+
+    app.get('/support', (req, res) => {
+        res.send('준비중입니다.');
+    });
+
+    app.get('/attendance', (req, res) => {
+        res.send('준비중입니다.');
+    });
+
+    app.get('/shop', (req, res) => {
+        res.send('준비중입니다.');
+    });
+
+    app.get('/profile/:id', (req, res) => {
+        res.send('준비중입니다.');
     });
 
     app.post('/counter/post', (req, res) => {
