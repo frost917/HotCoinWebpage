@@ -16,7 +16,7 @@
             <div style="display: none;">
             </div>
             <form class="form-horizontal" action="/donate" method="POST" id="formDonate">
-                <h4><%= id %>님의 현재 코인: <%= coin %>코인</h4>
+                <h4><%= username %>님의 현재 코인: <%= coin %>코인</h4>
                 <input type="hidden" name="_csrf" value="<%=csrfToken%>">
                 <input type="hidden" name="id" id="id" value="<%= id %>">
                 <input type="hidden" name="coin" id="coin" value="<%= coin %>">

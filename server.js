@@ -91,7 +91,7 @@ passport.use('twitch', new OAuth2Strategy({
             else {
                 let newUser = new User();
                 newUser.id = profile.name;
-                newUser.coin = 0;
+                newUser.coin = 1000;
 
                 newUser.save((err) => {
                     if(err) throw err;
