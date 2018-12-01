@@ -17,7 +17,8 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         }
 
         res.render('home', {
-            id: req.user.id
+            id: req.user.id,
+            admin: isAdmin(req.user.id)
         });
     });
 
@@ -87,6 +88,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
                 res.render('donation', {
                     id: req.user.id,
                     coin: oneuser.coin,
+                    admin: isAdmin(req.user.id),
                     csrfToken: req.csrfToken()
                 });
                 io.on('connection', function(socket) {
