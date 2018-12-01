@@ -17,6 +17,9 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <% if(admin) { %>
+            <li><a href="/manage">관리</a></li>
+            <% } %>
             <li><a href="/profile/<%= id %>">프로필</a></li>
         </ul>
     </div>
