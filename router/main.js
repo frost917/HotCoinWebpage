@@ -168,7 +168,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     .get(function(req, res) {
         if(req.isAuthenticated()) {
             if(isAdmin(req.user.id)) {
-                res.render('coins.html');
+                res.render('coins');
             }
             else {
                 res.redirect('/');
