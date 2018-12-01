@@ -1,4 +1,4 @@
-const getCoinfromUser = async(user) => {
+/*const getCoinfromUser = async(user) => {
     const fetchCoin = await fetch('https://api.twitch.tv/kraken/users?login=' + user.id, {
         headers: {
             'Accept': 'application/vnd.twitchtv.v5+json',
@@ -24,4 +24,4 @@ fetch('/coins/get')
 .then((data) => {
     let users = data;
     f(users, 0, users.length);
-});
+});*/
