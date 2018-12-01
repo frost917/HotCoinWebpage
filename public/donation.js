@@ -14,7 +14,7 @@ async function f() {
 
 $(document).ready(f());
 
-const imageArr = ['img1.png', 'img2.png', 'img3.png', 'img4.gif', 'img5.gif', 'img6.gif', 'img7.gif'];
+const imageArr = ['img1.png', 'img2.jpg', 'img3.png', 'img4.gif', 'img5.gif', 'img6.gif', 'img7.gif'];
 
 $('#image_select').change(function() {
     document.getElementById('image_selected').src = './assets/img/' + imageArr[this.selectedIndex];
