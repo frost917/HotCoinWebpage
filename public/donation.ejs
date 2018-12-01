@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-6">
+                    <div class="col-sm-3">
                         <label class="control-label radio-inline">
                             <input type="radio" name="types" value="TEXT" checked>글
                         </label>
@@ -34,11 +34,28 @@
                         <label class="control-label radio-inline">
                             <input type="radio" name="types" value="CLIP">클립
                         </label>
+                        <label class="control-label radio-inline">
+                            <input type="radio" name="types" value="AUDIO">음성
+                        </label>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="col-sm-offset-3">
+                            <select class="form-control" id="image_select">
+                                <option value="logo1.png">이미지1</option>
+                                <option value="logo2.jpg">이미지2</option>
+                                <option value="logo3.png">이미지3</option>
+                            </select>
+                        </div>    
                     </div>
                 </div>  
                 <div class="form-group">
                     <div class="col-sm-6">
                         <textarea class="form-control" rows="5" name="paragraph" id="paragraph" placeholder="글 또는 링크" maxlength="200"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-1 col-sm-4">
+                        <img id="image_selected" src="assets/img/logo1.png" style="width:100%">
                     </div>
                 </div>
                 <div class="form-group">

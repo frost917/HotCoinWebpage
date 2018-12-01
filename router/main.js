@@ -103,8 +103,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     .post(csrfProtection, (req, res) => {
         const donationObj = req.body;
         
-        //const image = donationObj.image;
-        const image = 'image_default';
+        const image = donationObj.image;
         const name = donationObj.name;
         const price = parseInt(donationObj.price);
         const type = donationObj.types;

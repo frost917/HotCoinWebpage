@@ -13,3 +13,9 @@ async function f() {
 }
 
 $(document).ready(f());
+
+const imageArr = ['logo1.png', 'logo2.jpg', 'logo3.png'];
+
+$('#image_select').change(function() {
+    document.getElementById('image_selected').src = './assets/img/' + imageArr[this.selectedIndex];
+});

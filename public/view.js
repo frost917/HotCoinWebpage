@@ -76,10 +76,12 @@ async function playDonation() {
         const data = donationQueue[0];
         console.log(data);
 
+        const image = data.image;
         const name = data.name;
         const price = data.price;
         const content = data.paragraph;
         const type = data.types;
+        document.getElementById('donationimg').src = './assets/img/' + image;
         document.getElementById('name').innerHTML = name;
         document.getElementById('price').innerHTML = price;
         document.getElementById('donationText').innerHTML = content;
