@@ -311,9 +311,9 @@ async function playTTS(textArr, start, now) {
         sig.play();
         await delay(durations[textArr[now]]+1000);
         console.log('ended');
-        playTTS(textArr, now+1, now+1);
+        await playTTS(textArr, now+1, now+1);
     }
     else {
-        playTTS(textArr, start, now+1);
+        await playTTS(textArr, start, now+1);
     }
 }
