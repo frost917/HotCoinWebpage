@@ -278,7 +278,7 @@ async function playTTS(textArr, start, now) {
 
         let sig = new Audio(`./assets/audio/${textArr[now]}.mp3`);
         sig.play();
-        await delay(parseInt(audio.duration * 1000)+1000);
+        await delay(parseInt(sig.duration * 1000)+1000);
         sig.onended = function() {
             console.log('ended');
             playTTS(textArr, now+1, now+1);
