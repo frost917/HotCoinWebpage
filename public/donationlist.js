@@ -24,6 +24,11 @@ function showData(start, end) {
     document.getElementById('donationlist').innerHTML = '';
     for(let i=start;i<end;i++) {
         let obj = data[i];
-        document.getElementById('donationlist').innerHTML += `${obj.name}님이 ${obj.price}헛코 후원. 내용: ${obj.content} <br />`;
+        document.getElementById('donationlist').innerHTML += '<tr>';
+        document.getElementById('donationlist').innerHTML += `<td>${obj.name}</td>
+        <td>${obj.price}</td>
+        <td>${obj.type}</td>
+        <td>${obj.content}</td>
+        </tr>`;
     }
 }

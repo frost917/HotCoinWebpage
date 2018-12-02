@@ -6,23 +6,19 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     </head>
     <body>
-        <input type="button" value="일시정지" id="btnPause" />
-        <input type="button" value="재생" id="btnResume" />
         <input type="button" value="스킵" id="btnSkip" />
         <input type="button" value="코인 관리" id="btnCoin" />
+        <input type="button" value="후원 목록" id="btnList" />
         <script>
             const socket = io.connect('https://hotsorry.herokuapp.com');
-            document.getElementById('btnPause').addEventListener('click', function() {
-                socket.emit('pause');
-            });
-            document.getElementById('btnResume').addEventListener('resume', function() {
-                socket.emit('resume');
-            });
             document.getElementById('btnSkip').addEventListener('click', function() {
                 socket.emit('skip');
             });
             document.getElementById('btnCoin').addEventListener('click', function() {
                 document.location.href = '/manage/coin';
+            });
+            document.getElementById('btnList').addEventListener('click', function() {
+                document.location.href = '/donations';
             });
         </script>
     </body>

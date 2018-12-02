@@ -50,7 +50,7 @@ module.exports = function(app, passport, io, Info, Counter, User) {
         res.send('준비중입니다.');
     });
 
-    app.get('/profile/:id', (req, res) => {
+    app.get('/profile', (req, res) => {
         res.send('준비중입니다.');
     });
 
@@ -142,12 +142,22 @@ module.exports = function(app, passport, io, Info, Counter, User) {
     });
 
     app.get('/donations', (req, res) => {
-        Info.find((err, donations) => {
-            if(err) return res.status(500).send({error: 'database failure'});
-            res.render('donationlist', {
-                data: JSON.stringify(donations)
+        if(!req.isAuthenticated()) {
+            res.redirect('/');
+            return;
+        }
+        if(isAdmin(req.user.id)) {
+            Info.find((err, donations) => {
+                if(err) return res.status(500).send({error: 'database failure'});
+                res.render('donationlist', {
+                    data: JSON.stringify(donations)
+                });
             });
-        });
+        }
+        else {
+           res.redirect('/'); 
+        }
+        
     });
 
     app.get('/manage', (req, res) => {
