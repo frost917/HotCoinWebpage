@@ -301,9 +301,11 @@ async function playTTS(textArr, start, now) {
         for(let i=start;i<now;i++) {
             str += textArr[i] + ' ';
         }
-        let len = str.length * 250 + 3000;
-        responsiveVoice.speak(str, 'Korean Female');
-        await delay(len);
+        if(str.length > 0) {
+            let len = str.length * 250 + 3000;
+            responsiveVoice.speak(str, 'Korean Female');
+            await delay(len);
+        }
 
         let sig = audios[textArr[now]];
         sig.play();
