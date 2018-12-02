@@ -21,6 +21,20 @@ let signitureList = [
     '(흉측)',
 ];
 
+let durations = {
+    '(고통)': 1000,
+    '(닥쳐)': 1000,
+    '(물론)': 1000,
+    '(븅신)': 1000,
+    '(신음)': 2500,
+    '(아암)': 1000,
+    '(안돼)': 3500,
+    '(재성대장)': 1000,
+    '(좋아)': 1000,
+    '(포기)': 4500,
+    '(흉측)': 1000
+};
+
 /*
 let player;
 window.onYouTubeIframeAPIReady = function() {
@@ -255,6 +269,7 @@ function replay(num) {
 
 async function playTTS(textArr, start, now) {
     if(now >= textArr.length) {
+        console.log('now big');
         let str = '';
         for(let i=start;i<now;i++) {
             str += textArr[i] + ' ';
@@ -278,11 +293,9 @@ async function playTTS(textArr, start, now) {
 
         let sig = new Audio(`./assets/audio/${textArr[now]}.mp3`);
         sig.play();
-        await delay(parseInt(sig.duration * 1000)+1000);
-        sig.onended = function() {
-            console.log('ended');
-            playTTS(textArr, now+1, now+1);
-        }
+        await delay(durations[textArr[now]]+1000);
+        console.log('ended');
+        playTTS(textArr, now+1, now+1);
     }
     else {
         playTTS(textArr, start, now+1);
