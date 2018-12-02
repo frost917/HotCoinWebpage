@@ -264,7 +264,10 @@ async function playTTS(textArr, start, now) {
         await delay(len);
         return;
     }
+    console.log(textArr[now]);
     if(signitureList.includes(textArr[now])) {
+        console.log('yes');
+        console.log(textArr[now]);
         let str = '';
         for(let i=start;i<now;i++) {
             str += textArr[i] + ' ';
@@ -276,6 +279,7 @@ async function playTTS(textArr, start, now) {
         let sig = new Audio(`./assets/audio/${textArr[now]}.mp3`);
         sig.play();
         sig.onended = function() {
+            console.log('ended');
             playTTS(textArr, now+1, now+1);
         }
     }
