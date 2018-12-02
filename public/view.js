@@ -21,6 +21,20 @@ let signitureList = [
     '(흉측)',
 ];
 
+let audios = {
+    '(고통)': new Audio(`./assets/audio/(고통).mp3`),
+    '(닥쳐)': new Audio(`./assets/audio/(닥쳐).mp3`),
+    '(물론)': new Audio(`./assets/audio/(물론).mp3`),
+    '(븅신)': new Audio(`./assets/audio/(븅신).mp3`),
+    '(신음)': new Audio(`./assets/audio/(신음).mp3`),
+    '(아암)': new Audio(`./assets/audio/(아암).mp3`),
+    '(안돼)': new Audio(`./assets/audio/(안돼).mp3`),
+    '(재성대장)': new Audio(`./assets/audio/(재성대장).mp3`),
+    '(좋아)': new Audio(`./assets/audio/(좋아).mp3`),
+    '(포기)': new Audio(`./assets/audio/(포기).mp3`),
+    '(흉측)': new Audio(`./assets/audio/(흉측).mp3`)
+}
+
 let durations = {
     '(고통)': 1000,
     '(닥쳐)': 1000,
@@ -291,7 +305,7 @@ async function playTTS(textArr, start, now) {
         responsiveVoice.speak(str, 'Korean Female');
         await delay(len);
 
-        let sig = new Audio(`./assets/audio/${textArr[now]}.mp3`);
+        let sig = audios[textArr[now]];
         sig.play();
         await delay(durations[textArr[now]]+1000);
         console.log('ended');
