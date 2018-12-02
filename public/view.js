@@ -7,6 +7,20 @@ let regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
 let content = document.getElementById('donationText').innerHTML;
 let match = content.toString().split(' ')[0].match(regExp);
 let alarm = new Audio('./assets/audio/alarm.mp3');
+let signitureList = [
+    '(고통)',
+    '(닥쳐)',
+    '(물론)',
+    '(븅신)',
+    '(신음)',
+    '(아암)',
+    '(안돼)',
+    '(재성대장)',
+    '(좋아)',
+    '(포기)',
+    '(흉측)',
+];
+
 /*
 let player;
 window.onYouTubeIframeAPIReady = function() {
@@ -90,26 +104,18 @@ async function playDonation() {
             $("div").fadeIn();
             manageDoc(0, 1, 0, 0, 0);
 
-            /*responsiveVoice.speak(content, 'Korean Female', { onend: function() {
-                console.log('ended');
-                myTimeout = setTimeout(() => {
-                    $("div").fadeOut();
-                    donationQueue.shift();
-                    setTimeout(() => {
-                        playDonation(); 
-                    }, 2000);
-                }, 4000);
-            }});*/
-            responsiveVoice.speak(content, 'Korean Female');
+            let strArray = content.split(' ');
+            await playTTS(strArray, 0, 0);
+
+            /*responsiveVoice.speak(content, 'Korean Female');
             const delaytime = parseInt(content.length)*1000/4;
 
-            myTimeout = setTimeout(() => {
-                $("div").fadeOut();
-                donationQueue.shift();
-                setTimeout(() => {
-                    playDonation(); 
-                }, 2000);
-            }, delaytime+3000);
+            await delay(delaytime+3000);*/
+            $("div").fadeOut();
+            donationQueue.shift();
+
+            await delay(2000);
+            playDonation();
         }
 
         else if(type == 'VIDEO') {
@@ -247,20 +253,33 @@ function replay(num) {
     playDonation();
 }
 
-/*function playTTS(text) {
-    let regex = /([^따]*)(.*)/;
-    let match = text.match(regex);
-    console.log(match[0]);
-    console.log(match[1]);
-    console.log(match[2]);
-    responsiveVoice.speak(match[0], 'Korean Female', { onend: function() {   
-        setTimeout(() => {
-            //document.getElementById('textdiv').style.display = 'none';   
-            $("div").fadeOut();                                     
-            now++;
-            setTimeout(() => {
-                playDonation(); 
-            }, 2000);
-        }, 1000);
-    } });
-}*/
+async function playTTS(textArr, start, now) {
+    if(now >= textArr.length) {
+        let str = '';
+        for(let i=start;i<now;i++) {
+            str += textArr[i] + ' ';
+        }
+        let len = str.length * 250 + 3000;
+        responsiveVoice.speak(str, 'Korean Female');
+        await delay(len);
+        return;
+    }
+    if(signitureList.includes(textArr[now])) {
+        let str = '';
+        for(let i=start;i<now;i++) {
+            str += textArr[i] + ' ';
+        }
+        let len = str.length * 250 + 3000;
+        responsiveVoice.speak(str, 'Korean Female');
+        await delay(len);
+
+        let sig = new Audio(`./assets/audio/${textArr[now]}.mp3`);
+        sig.play();
+        sig.onended = function() {
+            playTTS(textArr, now+1, now+1);
+        }
+    }
+    else {
+        playTTS(textArr, start, now+1);
+    }
+}
