@@ -49,14 +49,11 @@ let durations = {
     '(흉측)': 1000
 };
 
-/*
-let player;
+
+let ytPlayer;
 window.onYouTubeIframeAPIReady = function() {
     console.log('유튜브');
-    player = new YT.Player('videodiv', {
-        height: 720,
-        width: 1280,
-        videoId: 'Erbmd5EWPRw',
+    ytPlayer = new YT.Player('videoiframe', {
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -65,19 +62,23 @@ window.onYouTubeIframeAPIReady = function() {
 }
 
 function onPlayerReady(event) { 
-    event.target.loadVideoById(match[2]); 
-    event.target.playVideo();
+
 }
 
 function onPlayerStateChange(event) {
     if(event.data == 0) {
-        $('div').fadeOut();
-        now++;
-        setTimeout(() => {
-            playDonation(); 
-        }, 2000);         
+        endVideoDonation();      
     }
-}*/
+}
+
+async function endVideoDonation() {
+    document.getElementById('videoiframe').src = 'about:blank';
+    $("div").fadeOut();
+    donationQueue.shift();
+
+    await delay(2000);
+    playDonation();
+}
 
 async function getVideoLength(id) {
     const fetchVidLen = await fetch('https://www.googleapis.com/youtube/v3/videos?id='+id+'&part=contentDetails&id=$vId&key=AIzaSyCO_io6V02e4VtKW7NsexEhVzETLnzwOwE');
@@ -159,26 +160,26 @@ async function playDonation() {
             else {
                 console.log(match[2]);
                 let length = price*2;
-                document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
+
+                //document.getElementById('videoiframe').src = 'https://www.youtube.com/embed/' + match[2] + '?autoplay=1';
                 let time = await getVideoLength(match[2]);
                 const starttime = content.toString().split('?t=')[1];
                 if(starttime) {
-                    document.getElementById('videoiframe').src += '&start='+starttime;
+                    ytPlayer.cueVideoById(match[2], parseInt(starttime));
+                    //document.getElementById('videoiframe').src += '&start='+starttime;
                     time -= parseInt(starttime);
                 }
-                
-                if(length > time) {
-                    length = time;
-                    console.log(length);
+                else {
+                    ytPlayer.cueVideoById(match[2]);
                 }
-                    
-                await delay(length*1000);
-                document.getElementById('videoiframe').src = 'about:blank';
-                $("div").fadeOut();
-                donationQueue.shift();
 
-                await delay(2000);
-                playDonation();
+                ytPlayer.playVideo();
+                
+                if(length < time) {
+                    await delay(length*1000);
+                    ytPlayer.stopVideo();
+                    await endVideoDonation();
+                }
             }
         }  
         
