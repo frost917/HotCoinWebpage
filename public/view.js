@@ -251,7 +251,8 @@ function convert_time(duration) {
 function manageDoc(a, b, c, d, e) {
     document.getElementById('countdiv').style.display = (a ? 'block' : 'none');
     document.getElementById('textdiv').style.display = (b ? 'block' : 'none'); 
-    document.getElementById('videodiv').style.display = (c ? 'block' : 'none');
+    document.getElementById('videoiframe').width = (c ? 1280 : 0);
+    document.getElementById('videoiframe').height = (c ? 720 : 0);
     document.getElementById('clipdiv').style.display = (d ? 'block' : 'none');
     document.getElementById('videotextdiv').style.display = (e ? 'block' : 'none');
 }
