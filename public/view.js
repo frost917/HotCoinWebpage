@@ -49,11 +49,15 @@ let durations = {
     '(흉측)': 1000
 };
 
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 let ytPlayer;
 window.onYouTubeIframeAPIReady = function() {
     console.log('유튜브');
-    ytPlayer = new YT.Player('videoiframe', {
+    window.ytPlayer = new YT.Player('videoiframe', {
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
