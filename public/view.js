@@ -165,15 +165,15 @@ async function playDonation() {
                 let time = await getVideoLength(match[2]);
                 const starttime = content.toString().split('?t=')[1];
                 if(starttime) {
-                    ytPlayer.cueVideoById(match[2], parseInt(starttime));
+                    ytPlayer.loadVideoById(match[2], parseInt(starttime));
                     //document.getElementById('videoiframe').src += '&start='+starttime;
                     time -= parseInt(starttime);
                 }
                 else {
-                    ytPlayer.cueVideoById(match[2]);
+                    ytPlayer.loadVideoById(match[2]);
                 }
 
-                ytPlayer.playVideo();
+                //ytPlayer.playVideo();
                 
                 if(length < time) {
                     await delay(length*1000);
